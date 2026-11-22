@@ -11,51 +11,52 @@ type SemanticStatus =
 
 const STATUS_STYLES: Record<
   SemanticStatus,
-  { label: string; classes: string }
+  { label: string; dotClass: string; textClass: string }
 > = {
   pending: {
     label: "Pending",
-    classes:
-      "bg-status-pending-bg text-status-pending-text border-status-pending-border",
+    dotClass: "bg-[#B87A14]",
+    textClass: "text-status-pending-text",
   },
   confirmed: {
     label: "Confirmed",
-    classes:
-      "bg-status-confirmed-bg text-status-confirmed-text border-status-confirmed-border",
+    dotClass: "bg-[#24583B]",
+    textClass: "text-status-confirmed-text",
   },
   cancelled: {
     label: "Cancelled",
-    classes:
-      "bg-status-cancelled-bg text-status-cancelled-text border-status-cancelled-border",
+    dotClass: "bg-[#9A352E]",
+    textClass: "text-status-cancelled-text",
   },
   paid: {
     label: "Paid",
-    classes: "bg-status-paid-bg text-status-paid-text border-status-paid-border",
+    dotClass: "bg-[#205B55]",
+    textClass: "text-status-paid-text",
   },
   unpaid: {
     label: "Unpaid",
-    classes:
-      "bg-status-unpaid-bg text-status-unpaid-text border-status-unpaid-border",
+    dotClass: "bg-[#B87A14]",
+    textClass: "text-status-unpaid-text",
   },
   active: {
     label: "Active",
-    classes:
-      "bg-status-active-bg text-status-active-text border-status-active-border",
+    dotClass: "bg-[#24583B]",
+    textClass: "text-status-active-text",
   },
   inactive: {
     label: "Inactive",
-    classes:
-      "bg-status-inactive-bg text-status-inactive-text border-status-inactive-border",
+    dotClass: "bg-[#8A918B]",
+    textClass: "text-status-inactive-text",
   },
   failed: {
     label: "Failed",
-    classes:
-      "bg-status-cancelled-bg text-status-cancelled-text border-status-cancelled-border",
+    dotClass: "bg-[#9A352E]",
+    textClass: "text-status-cancelled-text",
   },
   blocked: {
     label: "Blocked",
-    classes:
-      "bg-status-cancelled-bg text-status-cancelled-text border-status-cancelled-border",
+    dotClass: "bg-[#9A352E]",
+    textClass: "text-status-cancelled-text",
   },
 };
 
@@ -64,8 +65,12 @@ export function StatusBadge({ status }: { status: SemanticStatus }) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold leading-5 ${config.classes}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold leading-5 ${config.textClass}`}
     >
+      <span
+        className={`h-1.5 w-1.5 shrink-0 rounded-full ${config.dotClass}`}
+        aria-hidden="true"
+      />
       {config.label}
     </span>
   );

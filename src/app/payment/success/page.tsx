@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, Clock } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { PageLoader } from "@/components/ui/Loader";
 import { apiRequest } from "@/lib/api-client";
 import { signOut, useSession } from "@/lib/auth-client";
+import { formatCurrency } from "@/lib/format";
 import type { SalonTransaction } from "@/types";
 
 function PaymentSuccessContent() {
@@ -83,7 +84,20 @@ function PaymentSuccessContent() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
       <div className="rounded-panel border border-border bg-surface p-8 text-center shadow-card sm:p-10">
-        {status === "paid" ? (
+        {!sessionId ? (
+          <>
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-status-cancelled-bg text-[#9A352E]">
+              <AlertCircle className="h-8 w-8" aria-hidden="true" />
+            </span>
+            <h1 className="mt-5 font-display text-3xl font-semibold text-text sm:text-4xl">
+              Missing Payment Session
+            </h1>
+            <p className="mt-2 text-sm text-muted">
+              No Stripe checkout session reference was found in this URL. Please
+              check your payment status from My Appointments.
+            </p>
+          </>
+        ) : status === "paid" ? (
           <>
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-status-confirmed-bg text-status-confirmed-text">
               <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
@@ -117,7 +131,7 @@ function PaymentSuccessContent() {
                 <div className="flex justify-between gap-4">
                   <span className="text-muted">Amount Paid</span>
                   <span className="font-bold text-primary">
-                    ${transaction.amount.toFixed(2)}{" "}
+                    {formatCurrency(transaction.amount, transaction.currency)}{" "}
                     {transaction.currency.toUpperCase()}
                   </span>
                 </div>
@@ -129,6 +143,19 @@ function PaymentSuccessContent() {
                 </div>
               </div>
             )}
+          </>
+        ) : status === "failed" ? (
+          <>
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-status-cancelled-bg text-[#9A352E]">
+              <AlertCircle className="h-8 w-8" aria-hidden="true" />
+            </span>
+            <h1 className="mt-5 font-display text-3xl font-semibold text-text sm:text-4xl">
+              Payment Not Completed
+            </h1>
+            <p className="mt-2 text-sm text-muted">
+              Stripe reported that this checkout payment failed or expired. You
+              can retry payment for confirmed appointments from My Appointments.
+            </p>
           </>
         ) : (
           <>

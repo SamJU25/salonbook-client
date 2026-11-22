@@ -1,10 +1,20 @@
 "use client";
 
-import { ChevronDown, LayoutDashboard, LogOut, Menu, Sparkles, X } from "lucide-react";
+import {
+  CalendarCheck,
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Scissors,
+  UserCircle2,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { signOut, useSession } from "@/lib/auth-client";
 
 export function Navbar() {
@@ -19,8 +29,9 @@ export function Navbar() {
     | { name?: string; email?: string; image?: string | null; role?: string }
     | undefined;
 
-  const dashboardHref =
-    user?.role === "admin" ? "/dashboard/admin" : "/dashboard/customer";
+  const isAdmin = user?.role === "admin";
+  const dashboardHref = isAdmin ? "/dashboard/admin" : "/dashboard/customer";
+  const dashboardNavLabel = isAdmin ? "Admin Dashboard" : "My Account";
 
   useEffect(() => {
     setMobileOpen(false);
@@ -63,10 +74,10 @@ export function Navbar() {
   const navLinkClass = (href: string) => {
     const isActive =
       href === "/" ? pathname === "/" : pathname.startsWith(href);
-    return `inline-flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+    return `inline-flex items-center px-1 py-2 text-sm transition-colors ${
       isActive
-        ? "bg-secondary text-primary font-semibold"
-        : "text-text/85 hover:bg-surface-muted hover:text-primary"
+        ? "font-semibold text-primary underline decoration-primary/60 decoration-2 underline-offset-8"
+        : "font-medium text-text/75 hover:text-primary"
     }`;
   };
 
@@ -78,7 +89,7 @@ export function Navbar() {
           className="inline-flex items-center gap-2.5 text-text focus-visible:rounded-lg"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-control bg-primary text-white">
-            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            <BrandMark className="h-4.5 w-4.5" />
           </span>
           <span className="font-display text-2xl font-semibold tracking-tight text-text">
             SalonBook
@@ -87,7 +98,7 @@ export function Navbar() {
 
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-1 md:flex"
+          className="hidden items-center gap-7 md:flex"
         >
           <Link
             href="/"
@@ -109,7 +120,7 @@ export function Navbar() {
               aria-current={pathname.startsWith("/dashboard") ? "page" : undefined}
               className={navLinkClass("/dashboard")}
             >
-              Dashboard
+              {dashboardNavLabel}
             </Link>
           )}
         </nav>
@@ -145,7 +156,7 @@ export function Navbar() {
               {dropdownOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 mt-2 w-56 rounded-card border border-border bg-surface p-2 shadow-dropdown"
+                  className="absolute right-0 mt-2 w-60 rounded-card border border-border bg-surface p-2 shadow-dropdown"
                 >
                   <div className="border-b border-border px-3 py-2">
                     <p className="truncate text-sm font-semibold text-text">
@@ -159,7 +170,34 @@ export function Navbar() {
                     className="mt-1 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
                   >
                     <LayoutDashboard className="h-4 w-4 text-primary" aria-hidden="true" />
-                    Dashboard
+                    {isAdmin ? "Admin Dashboard" : "My Dashboard"}
+                  </Link>
+                  {isAdmin ? (
+                    <Link
+                      href="/dashboard/admin/services"
+                      role="menuitem"
+                      className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
+                    >
+                      <Scissors className="h-4 w-4 text-primary" aria-hidden="true" />
+                      Manage Services
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/dashboard/customer/appointments"
+                      role="menuitem"
+                      className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
+                    >
+                      <CalendarCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+                      My Appointments
+                    </Link>
+                  )}
+                  <Link
+                    href={isAdmin ? "/dashboard/admin/profile" : "/dashboard/customer/profile"}
+                    role="menuitem"
+                    className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
+                  >
+                    <UserCircle2 className="h-4 w-4 text-primary" aria-hidden="true" />
+                    My Profile
                   </Link>
                   <button
                     type="button"
@@ -177,12 +215,18 @@ export function Navbar() {
             <>
               <Link
                 href="/sign-in"
-                className="inline-flex h-11 items-center justify-center rounded-control border border-border bg-surface px-4 text-sm font-semibold text-text transition-colors hover:border-primary hover:text-primary"
+                aria-current={pathname === "/sign-in" ? "page" : undefined}
+                className={`inline-flex h-11 items-center justify-center rounded-control border px-4 text-sm font-semibold transition-colors ${
+                  pathname === "/sign-in"
+                    ? "border-primary bg-secondary text-primary"
+                    : "border-border bg-surface text-text hover:border-primary hover:text-primary"
+                }`}
               >
                 Sign In
               </Link>
               <Link
                 href="/sign-up"
+                aria-current={pathname === "/sign-up" ? "page" : undefined}
                 className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
               >
                 Sign Up
@@ -222,8 +266,16 @@ export function Navbar() {
             {user ? (
               <>
                 <Link href={dashboardHref} className={navLinkClass("/dashboard")}>
-                  Dashboard
+                  {dashboardNavLabel}
                 </Link>
+                {!isAdmin && (
+                  <Link
+                    href="/dashboard/customer/appointments"
+                    className={navLinkClass("/dashboard/customer/appointments")}
+                  >
+                    My Appointments
+                  </Link>
+                )}
                 <div className="mt-2 border-t border-border pt-3">
                   <p className="px-3 text-xs font-semibold text-muted">
                     Signed in as {user.name}
@@ -241,6 +293,12 @@ export function Navbar() {
             ) : (
               <div className="mt-3 flex flex-col gap-2 border-t border-border pt-3">
                 <Link
+                  href="/services"
+                  className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-4 text-sm font-semibold text-white"
+                >
+                  Book Appointment
+                </Link>
+                <Link
                   href="/sign-in"
                   className="inline-flex h-11 items-center justify-center rounded-control border border-border bg-surface px-4 text-sm font-semibold text-text"
                 >
@@ -248,9 +306,9 @@ export function Navbar() {
                 </Link>
                 <Link
                   href="/sign-up"
-                  className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-4 text-sm font-semibold text-white"
+                  className="py-1.5 text-center text-xs font-semibold text-primary hover:underline"
                 >
-                  Sign Up
+                  New to SalonBook? Create an account
                 </Link>
               </div>
             )}
