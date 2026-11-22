@@ -89,7 +89,7 @@ export default function AdminManageServicesPage() {
         <div>
           <h1 className="text-2xl font-bold text-text">Manage Services</h1>
           <p className="mt-1 text-sm text-muted">
-            Create, edit, activate/deactivate, or remove salon services.
+            Add, edit, pause, or delete salon services.
           </p>
         </div>
 
@@ -259,7 +259,7 @@ export default function AdminManageServicesPage() {
       <ConfirmDialog
         open={Boolean(deleteTarget)}
         title="Delete salon service?"
-        description={`This permanently removes "${deleteTarget?.serviceName || ""}" from the catalog. Services with active bookings cannot be deleted.`}
+        description={`This permanently deletes "${deleteTarget?.serviceName || ""}". Services with active bookings can't be deleted.`}
         confirmLabel="Delete service"
         cancelLabel="Cancel"
         destructive

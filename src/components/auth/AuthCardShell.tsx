@@ -18,14 +18,14 @@ export function AuthCardShell({
           <div>
             <p className="inline-flex items-center gap-2.5 text-xs font-bold tracking-widest text-secondary uppercase">
               <BrandMark className="h-4 w-4 text-accent" />
-              SalonBook Member Access
+              SalonBook
             </p>
             <h2 className="mt-5 font-display text-4xl font-semibold leading-tight text-white">
-              Your salon appointments, thoughtfully organized.
+              Book appointments and manage your visits.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-sidebar-muted">
-              Sign in to request appointments, view live status updates, and
-              manage confirmed bookings with secure Stripe payments.
+              Sign in to request appointments, check booking status, and pay
+              online with Stripe.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export function AuthCardShell({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/services/facial-skincare.jpg"
-              alt="Calm botanical skincare tray in soft daylight"
+              alt="Skincare bottles and folded towels on a wooden tray"
               className="aspect-4/3 w-full object-cover"
             />
           </div>

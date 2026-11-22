@@ -49,7 +49,7 @@ const CATEGORY_META: Record<string, CategoryMeta> = {
 
 const DEFAULT_META: CategoryMeta = {
   image: "/images/services/silk-press.jpg",
-  description: "Curated salon care tailored to your appointment.",
+  description: "Professional hair, skincare, nail, and spa services.",
 };
 
 /**
@@ -155,8 +155,8 @@ export function HomeDynamicSections() {
               Featured Salon Services
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">
-              Browse our most requested hair, skincare, nail, and spa services
-              available for online booking.
+              Popular hair, skincare, nail, and spa services you can book
+              online.
             </p>
           </div>
 
@@ -175,7 +175,7 @@ export function HomeDynamicSections() {
           ) : error ? (
             <div className="rounded-card border border-border bg-surface p-10 text-center shadow-card">
               <h3 className="font-display text-2xl font-semibold text-text">
-                Treatment menu unavailable
+                Services unavailable
               </h3>
               <p className="mx-auto mt-2 max-w-md text-sm text-muted">{error}</p>
               <Button variant="secondary" className="mt-5" onClick={loadData}>
@@ -185,10 +185,10 @@ export function HomeDynamicSections() {
           ) : services.length === 0 ? (
             <div className="rounded-card border border-border bg-surface p-10 text-center">
               <p className="text-base font-semibold text-text">
-                No active salon services published yet.
+                No services available right now.
               </p>
               <p className="mt-1 text-sm text-muted">
-                Check back soon or browse our full menu once services are active.
+                Check back soon for updated salon services.
               </p>
             </div>
           ) : (
@@ -219,7 +219,7 @@ export function HomeDynamicSections() {
                 Salon Service Categories
               </h2>
               <p className="mt-2 text-sm text-muted sm:text-base">
-                Choose a category to view matching treatments.
+                Pick a category to see available services.
               </p>
             </div>
 

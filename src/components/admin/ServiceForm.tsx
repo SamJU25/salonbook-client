@@ -123,9 +123,9 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
       {/* Left: Treatment Details & Pricing */}
       <div className="rounded-card border border-border bg-surface p-6 shadow-xs sm:p-8 lg:col-span-8">
         <div className="border-b border-border pb-4">
-          <h2 className="text-base font-bold text-text">Treatment Details</h2>
+          <h2 className="text-base font-bold text-text">Service Details</h2>
           <p className="mt-0.5 text-xs text-muted">
-            Configure service naming, category placement, pricing, and client description.
+            Set the service name, category, price, and description.
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
               required
               value={serviceName}
               onChange={(e) => setServiceName(e.target.value)}
-              placeholder="Signature Botanical Facial"
+              placeholder="Classic Hydrating Facial"
               className="h-11 w-full rounded-control border border-border bg-surface px-3.5 text-sm text-text placeholder:text-muted/70 focus:border-primary focus:outline-none"
             />
           </div>
@@ -266,7 +266,6 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
           allowUrlInput={false}
           variant="dropzone"
           required
-          helperText="Hosted automatically via ImgBB."
         />
 
         <div className="border-t border-border pt-5">
@@ -283,12 +282,12 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
             </div>
 
             <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-text">
-              {serviceName.trim() || "Signature Botanical Facial"}
+              {serviceName.trim() || "Classic Hydrating Facial"}
             </h3>
 
             <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">
               {description.trim() ||
-                "Your client-facing treatment summary will appear here."}
+                "Your service description will appear here."}
             </p>
 
             <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-sm">

@@ -17,11 +17,11 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "SalonBook — Calm, Effortless Salon Booking",
+    default: "SalonBook — Online Salon Booking",
     template: "%s | SalonBook",
   },
   description:
-    "Discover curated hair, skin, nail, and spa treatments. Book salon appointments online and pay securely with SalonBook.",
+    "Browse hair, skin, nail, and spa services. Book appointments online and pay securely with SalonBook.",
 };
 
 export default function RootLayout({

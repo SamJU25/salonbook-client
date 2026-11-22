@@ -116,7 +116,7 @@ export function DashboardShell({
   if (isPending || !user || user.isBlocked) {
     return (
       <div className="min-h-screen bg-page p-8">
-        <PageLoader label="Verifying dashboard access..." />
+        <PageLoader label="Loading dashboard..." />
       </div>
     );
   }

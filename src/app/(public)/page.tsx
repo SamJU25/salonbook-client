@@ -12,11 +12,11 @@ import { HomeDynamicSections } from "@/components/home/HomeDynamicSections";
 
 const HERO_TRUST_POINTS = [
   {
-    label: "Effortless online booking",
+    label: "Quick online booking",
     icon: CalendarCheck,
   },
   {
-    label: "Transparent service pricing",
+    label: "Clear, upfront pricing",
     icon: Tag,
   },
   {
@@ -30,28 +30,28 @@ const BOOKING_STEPS = [
     step: "01",
     title: "Find your service",
     description:
-      "Explore services and compare transparent prices and estimated durations.",
+      "Browse treatments and compare prices and session lengths.",
     icon: Search,
   },
   {
     step: "02",
     title: "Choose your time",
     description:
-      "Select an available appointment date and time slot that fits your schedule.",
+      "Pick an open date and time that fits your schedule.",
     icon: CalendarCheck,
   },
   {
     step: "03",
     title: "Pay after confirmation",
     description:
-      "After your appointment is confirmed, complete payment securely with Stripe.",
+      "Once confirmed, pay securely online with Stripe.",
     icon: CreditCard,
   },
   {
     step: "04",
     title: "Enjoy your visit",
     description:
-      "Track appointment status and payment receipts anytime from your dashboard.",
+      "Check your booking status and receipts anytime in your dashboard.",
     icon: Leaf,
   },
 ];
@@ -63,7 +63,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-border bg-sidebar">
         <Image
           src="/images/hero-salon.jpg"
-          alt="Warm sunlit SalonBook botanical salon interior with oak styling stations and natural greenery"
+          alt="Sunlit SalonBook interior with oak styling stations and indoor plants"
           fill
           priority
           sizes="100vw"
@@ -85,7 +85,7 @@ export default function HomePage() {
           <div className="max-w-xl">
             <p className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-[#F5F3EE] uppercase">
               <span className="h-px w-7 bg-accent" aria-hidden="true" />
-              Botanical Wellness &amp; Salon Studio
+              Hair, Skin &amp; Spa Studio
             </p>
             <h1 className="mt-4 font-display text-[2.125rem] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_1px_12px_rgba(24,22,19,0.38)] sm:mt-5 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
               Calm, intentional care for hair, skin, and ritual.

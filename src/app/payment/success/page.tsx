@@ -93,8 +93,8 @@ function PaymentSuccessContent() {
               Missing Payment Session
             </h1>
             <p className="mt-2 text-sm text-muted">
-              No Stripe checkout session reference was found in this URL. Please
-              check your payment status from My Appointments.
+              We couldn&apos;t find a payment session in this link. Check your
+              payment status in My Appointments.
             </p>
           </>
         ) : status === "paid" ? (
@@ -106,8 +106,7 @@ function PaymentSuccessContent() {
               Payment Confirmed
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Your Stripe payment has been verified and recorded for your salon
-              appointment.
+              Your payment is complete and your appointment is marked as paid.
             </p>
 
             {transaction && (
@@ -153,8 +152,8 @@ function PaymentSuccessContent() {
               Payment Not Completed
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Stripe reported that this checkout payment failed or expired. You
-              can retry payment for confirmed appointments from My Appointments.
+              This payment failed or expired. You can try paying again from My
+              Appointments.
             </p>
           </>
         ) : (
@@ -166,9 +165,8 @@ function PaymentSuccessContent() {
               Confirming Your Payment
             </h1>
             <p className="mt-2 text-sm text-muted">
-              We are waiting for Stripe webhook verification to finalize your
-              transaction. Your appointment payment status updates automatically
-              once verified.
+              We&apos;re confirming your payment with Stripe. Your status will
+              update automatically in a moment.
             </p>
           </>
         )}

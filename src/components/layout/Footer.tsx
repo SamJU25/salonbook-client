@@ -57,7 +57,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-sidebar-muted">
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>240 Botanical Row, Suite 4B, Willow District</span>
+                <span>240 Oakwood Ave, Suite 4B, Austin, TX</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
@@ -65,7 +65,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>concierge@salonbook.example</span>
+                <span>hello@salonbook.com</span>
               </li>
             </ul>
           </div>

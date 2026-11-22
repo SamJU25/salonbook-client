@@ -93,7 +93,7 @@ export default function AdminManageUsersPage() {
   };
 
   if (isLoading) {
-    return <PageLoader label="Loading registered customers..." />;
+    return <PageLoader label="Loading customers..." />;
   }
 
   return (
@@ -101,14 +101,14 @@ export default function AdminManageUsersPage() {
       <div>
         <h1 className="text-2xl font-bold text-text">Manage Users</h1>
         <p className="mt-1 text-sm text-muted">
-          View registered customers and manage platform access.
+          View customer accounts and manage access.
         </p>
       </div>
 
       {users.length === 0 ? (
         <div className="rounded-card border border-border bg-surface p-10 text-center shadow-xs">
           <p className="text-base font-semibold text-text">
-            No registered customers yet.
+            No customers yet.
           </p>
         </div>
       ) : (
@@ -300,8 +300,8 @@ export default function AdminManageUsersPage() {
         }
         description={
           blockTarget?.isBlocked
-            ? `Restores protected booking and dashboard access for ${blockTarget?.name}.`
-            : `Blocking ${blockTarget?.name} immediately prevents them from accessing protected routes, booking appointments, or making payments.`
+            ? `${blockTarget?.name} will be able to sign in and book appointments again.`
+            : `${blockTarget?.name} won't be able to sign in, book appointments, or make payments.`
         }
         confirmLabel={blockTarget?.isBlocked ? "Unblock user" : "Block user"}
         cancelLabel="Cancel"

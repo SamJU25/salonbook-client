@@ -46,10 +46,9 @@ export default function AdminOverviewPage() {
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-text">Admin Overview</h1>
+          <h1 className="text-2xl font-bold text-text">Overview</h1>
           <p className="mt-1 text-sm text-muted">
-            Monitor salon services, customer registrations, appointments, and
-            verified payments.
+            Manage services, customers, appointments, and payments.
           </p>
         </div>
 
@@ -110,16 +109,16 @@ export default function AdminOverviewPage() {
         >
           <h2 className="text-base font-bold text-text">Manage Services</h2>
           <p className="mt-1 text-sm text-muted">
-            Add treatments, upload images, or toggle active status.
+            Add, edit, or pause salon services.
           </p>
         </Link>
         <Link
           href="/dashboard/admin/transactions"
           className="rounded-card border border-border bg-surface p-5 shadow-xs transition-colors hover:border-primary/40"
         >
-          <h2 className="text-base font-bold text-text">Payment Ledger</h2>
+          <h2 className="text-base font-bold text-text">Transactions</h2>
           <p className="mt-1 text-sm text-muted">
-            Inspect verified Stripe Checkout transactions.
+            View completed Stripe payments.
           </p>
         </Link>
       </div>

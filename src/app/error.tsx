@@ -16,8 +16,7 @@ export default function GlobalError({
           Something went wrong
         </h1>
         <p className="mt-2 text-sm text-muted">
-          An unexpected error occurred while loading this page. Please try
-          again.
+          We couldn&apos;t load this page. Please try again.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button onClick={reset}>Try again</Button>

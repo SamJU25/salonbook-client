@@ -96,15 +96,14 @@ export default function AdminManageAppointmentsPage() {
       <div>
         <h1 className="text-2xl font-bold text-text">Manage Appointments</h1>
         <p className="mt-1 text-sm text-muted">
-          Review customer appointment requests, confirm pending bookings, or
-          cancel appointments.
+          Review, confirm, or cancel customer appointments.
         </p>
       </div>
 
       {appointments.length === 0 ? (
         <div className="rounded-card border border-border bg-surface p-10 text-center shadow-xs">
           <p className="text-base font-semibold text-text">
-            No appointment requests submitted yet.
+            No appointments yet.
           </p>
         </div>
       ) : (
@@ -355,7 +354,7 @@ export default function AdminManageAppointmentsPage() {
             <div>
               <span className="block text-muted">Customer Message</span>
               <p className="mt-1 rounded-control bg-page p-3 text-text">
-                {detailTarget.message || "No additional notes provided."}
+                {detailTarget.message || "No notes added."}
               </p>
             </div>
           </div>
@@ -371,8 +370,8 @@ export default function AdminManageAppointmentsPage() {
         }
         description={
           actionTarget?.nextStatus === "confirmed"
-            ? "Confirming allows the customer to proceed with Stripe payment for this appointment."
-            : "Cancelling releases the reserved time slot and prevents payment on this booking."
+            ? "Confirming lets the customer pay for this appointment."
+            : "Cancelling frees up the time slot and closes this request."
         }
         confirmLabel={
           actionTarget?.nextStatus === "confirmed"

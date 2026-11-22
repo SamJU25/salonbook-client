@@ -41,17 +41,16 @@ export default function AdminTransactionsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text">Payment Transactions</h1>
+        <h1 className="text-2xl font-bold text-text">Transactions</h1>
         <p className="mt-1 text-sm text-muted">
-          Read-only ledger of Stripe Checkout payments verified through webhook
-          events.
+          Customer payments processed through Stripe.
         </p>
       </div>
 
       {transactions.length === 0 ? (
         <div className="rounded-card border border-border bg-surface p-10 text-center shadow-xs">
           <p className="text-base font-semibold text-text">
-            No payment transactions recorded yet.
+            No payments yet.
           </p>
         </div>
       ) : (

@@ -59,7 +59,7 @@ export async function apiRequest<T>(
   } catch {
     throw new ApiClientError(
       0,
-      "Our treatment menu is momentarily unavailable. Please try again shortly.",
+      "Unable to connect to the server. Please check your connection and try again.",
       "NETWORK_ERROR"
     );
   }

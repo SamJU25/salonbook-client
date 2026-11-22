@@ -82,11 +82,11 @@ export default function CustomerAppointmentsPage() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        throw new Error("Stripe Checkout URL was not returned");
+        throw new Error("Couldn't start checkout. Please try again.");
       }
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Unable to start Stripe Checkout"
+        err instanceof Error ? err.message : "Couldn't start payment. Please try again."
       );
       setPayingId(null);
     }
@@ -102,8 +102,8 @@ export default function CustomerAppointmentsPage() {
         <div>
           <h1 className="text-2xl font-bold text-text">My Appointments</h1>
           <p className="mt-1 text-sm text-muted">
-            View booking status, cancel pending requests, or pay for confirmed
-            appointments.
+            Check your bookings, cancel pending requests, or pay for confirmed
+            visits.
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function CustomerAppointmentsPage() {
             No appointments yet
           </h2>
           <p className="mt-2 text-sm text-muted">
-            Explore our salon services to submit your first appointment request.
+            Browse our services to book your first appointment.
           </p>
           <Link
             href="/services"
@@ -377,7 +377,7 @@ export default function CustomerAppointmentsPage() {
       <ConfirmDialog
         open={Boolean(cancelTarget)}
         title="Cancel appointment request?"
-        description="This will cancel your pending appointment request and release the reserved time slot."
+        description="This cancels your pending request and frees up the time slot."
         confirmLabel="Cancel booking"
         cancelLabel="Keep request"
         destructive

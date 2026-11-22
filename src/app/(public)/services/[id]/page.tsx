@@ -134,7 +134,7 @@ export default function ServiceDetailsPage() {
           message: parsed.data.message,
         }),
       });
-      toast.success("Appointment request submitted! Awaiting salon confirmation.");
+      toast.success("Appointment requested. You can track confirmation in My Appointments.");
       router.push("/dashboard/customer/appointments");
     } catch (err) {
       const msg =
@@ -149,7 +149,7 @@ export default function ServiceDetailsPage() {
   };
 
   if (isSessionPending || !user || user.isBlocked) {
-    return <PageLoader label="Verifying your session..." />;
+    return <PageLoader label="Checking your account..." />;
   }
 
   if (isLoadingService) {
@@ -256,8 +256,7 @@ export default function ServiceDetailsPage() {
               Book Appointment
             </h2>
             <p className="mt-1.5 text-sm text-muted">
-              Choose your preferred date and available slot to submit a booking
-              request.
+              Pick a date and time to request this appointment.
             </p>
 
             {isAdmin ? (
@@ -265,17 +264,17 @@ export default function ServiceDetailsPage() {
                 <div className="flex items-start gap-2.5">
                   <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
                   <div>
-                    <p className="font-bold">Administrator View</p>
+                    <p className="font-bold">Admin Account</p>
                     <p className="mt-1">
-                      Admin accounts cannot submit customer appointment
-                      requests. Switch to a customer account to book.
+                      Admin accounts can&apos;t book appointments. Sign in with
+                      a customer account to book.
                     </p>
                   </div>
                 </div>
               </div>
             ) : isInactive ? (
               <div className="mt-6 rounded-card border border-status-inactive-border bg-status-inactive-bg p-4 text-sm text-status-inactive-text">
-                This service is currently inactive and unavailable for booking.
+                This service is currently unavailable.
               </div>
             ) : (
               <form onSubmit={handleBookingSubmit} className="mt-6 space-y-5">
@@ -360,7 +359,7 @@ export default function ServiceDetailsPage() {
                     maxLength={500}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Share any styling preferences or notes for your stylist..."
+                    placeholder="Add any preferences or notes for your appointment..."
                     className="w-full rounded-control border border-border bg-surface px-3.5 py-2.5 text-sm text-text placeholder:text-muted/70 focus:border-primary focus:outline-none"
                   />
                 </div>
@@ -386,8 +385,7 @@ export default function ServiceDetailsPage() {
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-muted">
-                    Payment is completed only after the salon confirms your
-                    appointment.
+                    You&apos;ll only pay after the salon confirms your request.
                   </p>
                 </div>
 

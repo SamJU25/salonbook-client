@@ -15,7 +15,7 @@ export default function AddServicePage() {
         </Link>
         <h1 className="mt-2 text-2xl font-bold text-text">Add New Service</h1>
         <p className="mt-1 text-sm text-muted">
-          Create a new salon service with an uploaded photo.
+          Add a service to your booking menu.
         </p>
       </div>
 

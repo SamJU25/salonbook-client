@@ -101,7 +101,7 @@ function SignUpFormContent() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Alex Rivera"
+            placeholder="Hannah Brooks"
             className="h-11 w-full rounded-control border border-border bg-surface px-3.5 text-sm text-text placeholder:text-muted/70 focus:border-primary focus:outline-none"
           />
         </div>

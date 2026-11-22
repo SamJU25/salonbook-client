@@ -141,7 +141,7 @@ export function ProfileForm() {
                 className="h-11 w-full cursor-not-allowed rounded-control border border-border bg-surface-muted px-3.5 text-sm text-muted"
               />
               <p className="mt-1 text-xs text-muted">
-                Account email cannot be modified.
+                Your email address can&apos;t be changed.
               </p>
             </div>
 

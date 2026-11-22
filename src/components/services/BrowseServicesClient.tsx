@@ -132,14 +132,14 @@ export function BrowseServicesClient() {
       {/* Compact Page Introduction */}
       <div className="max-w-2xl">
         <p className="text-xs font-bold tracking-widest text-accent-text uppercase">
-          Treatment Menu
+          Our Services
         </p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-text sm:text-5xl">
-          Find Your Perfect Treatment
+          Browse Salon Services
         </h1>
         <p className="mt-2.5 text-sm leading-relaxed text-muted sm:text-base">
-          Explore curated hair, facial, nail, and spa rituals—compare
-          transparent pricing and durations before booking.
+          Compare prices and session lengths across hair, facial, nail, and
+          spa services before booking.
         </p>
       </div>
 
@@ -291,7 +291,7 @@ export function BrowseServicesClient() {
         ) : error ? (
           <div className="rounded-card border border-border bg-surface p-12 text-center shadow-card">
             <h2 className="font-display text-2xl font-semibold text-text">
-              Unable to reach the treatment menu
+              Couldn&apos;t load services
             </h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted">{error}</p>
             <Button variant="secondary" className="mt-5" onClick={fetchServices}>
@@ -304,16 +304,16 @@ export function BrowseServicesClient() {
               <Search className="h-5 w-5" aria-hidden="true" />
             </span>
             <h2 className="mt-4 font-display text-2xl font-semibold text-text sm:text-3xl">
-              No matching treatments found
+              No matching services found
             </h2>
             <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted">
               {debouncedSearch && category !== "all"
-                ? `We couldn't find any treatments matching "${debouncedSearch}" in ${category}.`
+                ? `No services matched "${debouncedSearch}" in ${category}.`
                 : debouncedSearch
-                  ? `We couldn't find any treatments matching "${debouncedSearch}".`
+                  ? `No services matched "${debouncedSearch}".`
                   : category !== "all"
-                    ? `There are currently no active treatments listed under ${category}.`
-                    : "Try adjusting your search keywords or clearing active filters to view all salon treatments."}
+                    ? `No active services are listed under ${category} right now.`
+                    : "Try different keywords or clear your filters to see all salon services."}
             </p>
             {hasActiveFilters && (
               <Button variant="secondary" className="mt-6" onClick={handleReset}>

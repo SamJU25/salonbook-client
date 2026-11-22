@@ -17,8 +17,8 @@ export default function PaymentCancelPage() {
               Payment Cancelled
             </h1>
             <p className="mt-2 text-sm text-muted">
-              No charge was made. Your confirmed appointment remains unpaid and
-              can be paid anytime from My Appointments.
+              You weren&apos;t charged. You can pay for your confirmed
+              appointment anytime in My Appointments.
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">

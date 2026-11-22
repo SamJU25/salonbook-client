@@ -15,8 +15,8 @@ export default function NotFoundPage() {
             We couldn&apos;t find that page
           </h1>
           <p className="mt-3 text-sm text-muted">
-            The route you requested may have moved or is unavailable. Return to
-            home or browse our salon services.
+            The page you&apos;re looking for doesn&apos;t exist or may have
+            moved.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link

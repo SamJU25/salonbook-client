@@ -41,9 +41,9 @@ export default function CustomerOverviewPage() {
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-text">Customer Overview</h1>
+          <h1 className="text-2xl font-bold text-text">Overview</h1>
           <p className="mt-1 text-sm text-muted">
-            Track your salon appointment requests and confirmed bookings.
+            See your appointment requests and upcoming bookings.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function CustomerOverviewPage() {
           href="/services"
           className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
         >
-          Book New Service
+          Book a Service
         </Link>
       </div>
 
@@ -81,14 +81,14 @@ export default function CustomerOverviewPage() {
       <div className="rounded-card border border-border bg-surface p-6 shadow-xs">
         <h2 className="text-lg font-bold text-text">Next Steps</h2>
         <p className="mt-1 text-sm text-muted">
-          Once the salon confirms a pending appointment request, visit{" "}
+          Once an appointment is confirmed, go to{" "}
           <Link
             href="/dashboard/customer/appointments"
             className="font-semibold text-primary hover:underline"
           >
             My Appointments
           </Link>{" "}
-          to complete payment securely through Stripe.
+          to pay online.
         </p>
       </div>
     </div>

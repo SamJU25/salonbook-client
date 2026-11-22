@@ -68,9 +68,9 @@ export default function EditServicePage() {
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to Manage Services
         </Link>
-        <h1 className="mt-2 text-2xl font-bold text-text">Update Service</h1>
+        <h1 className="mt-2 text-2xl font-bold text-text">Edit Service</h1>
         <p className="mt-1 text-sm text-muted">
-          Modify details, pricing, status, or replace the uploaded service image.
+          Update the service name, price, status, or photo.
         </p>
       </div>
 
