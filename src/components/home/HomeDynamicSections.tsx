@@ -254,7 +254,7 @@ export function HomeDynamicSections() {
                       alt={`${category} salon treatment`}
                       fill
                       sizes={getCardImageSizes(index, displayCategories.length)}
-                      className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      className="object-cover object-[50%_24%] transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />
                     <div
                       className="absolute inset-0 bg-gradient-to-t from-[#13221C]/90 via-[#13221C]/38 to-transparent transition-colors duration-300 group-hover:from-[#13221C]/95 motion-reduce:transition-none"
