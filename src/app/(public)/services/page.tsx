@@ -6,7 +6,7 @@ import { PageLoader } from "@/components/ui/Loader";
 export const metadata: Metadata = {
   title: "Browse Salon Services",
   description:
-    "Search salon services by name, filter by category, and sort by price.",
+    "Search salon services by name, filter by category, and sort by price or duration.",
 };
 
 export default function BrowseServicesPage() {

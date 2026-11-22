@@ -11,6 +11,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { apiRequest } from "@/lib/api-client";
 import { signOut, useSession } from "@/lib/auth-client";
 import { PREDEFINED_TIME_SLOTS } from "@/lib/constants";
+import { formatCurrency } from "@/lib/format";
 import { bookingSchema } from "@/lib/validators";
 import type { SalonService } from "@/types";
 
@@ -208,7 +209,9 @@ export default function ServiceDetailsPage() {
                 <span className="text-xs font-bold tracking-widest text-accent-text uppercase">
                   {service.category}
                 </span>
-                <StatusBadge status={service.status} />
+                {service.status !== "active" && (
+                  <StatusBadge status={service.status} />
+                )}
               </div>
 
               <h1 className="mt-2 font-display text-3xl font-semibold text-text sm:text-4xl">
@@ -219,7 +222,7 @@ export default function ServiceDetailsPage() {
                 <div>
                   <p className="text-xs font-medium text-muted">Service Price</p>
                   <p className="mt-0.5 text-2xl font-bold text-text">
-                    ${service.price.toFixed(2)}
+                    {formatCurrency(service.price)}
                   </p>
                 </div>
                 <div className="h-9 w-px bg-border" aria-hidden="true" />
@@ -379,7 +382,7 @@ export default function ServiceDetailsPage() {
                   <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2.5">
                     <span className="font-semibold text-text">Total Price</span>
                     <span className="text-base font-bold text-primary">
-                      ${service.price.toFixed(2)}
+                      {formatCurrency(service.price)}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-muted">

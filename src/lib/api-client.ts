@@ -48,12 +48,21 @@ export async function apiRequest<T>(
     headers.set("Content-Type", "application/json");
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...rest,
-    headers,
-    body,
-    cache: "no-store",
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...rest,
+      headers,
+      body,
+      cache: "no-store",
+    });
+  } catch {
+    throw new ApiClientError(
+      0,
+      "Our treatment menu is momentarily unavailable. Please try again shortly.",
+      "NETWORK_ERROR"
+    );
+  }
 
   const payload = (await response.json().catch(() => null)) as ApiEnvelope<T> | null;
 
