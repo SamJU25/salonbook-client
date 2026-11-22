@@ -9,6 +9,7 @@ interface ImageUploaderProps {
   label: string;
   value: string;
   onChange: (url: string) => void;
+  onUploadingChange?: (uploading: boolean) => void;
   allowUrlInput?: boolean;
   required?: boolean;
   error?: string;
@@ -20,6 +21,7 @@ export function ImageUploader({
   label,
   value,
   onChange,
+  onUploadingChange,
   allowUrlInput = false,
   required = false,
   error,
@@ -51,6 +53,7 @@ export function ImageUploader({
     }
 
     setIsUploading(true);
+    onUploadingChange?.(true);
     try {
       const uploadedUrl = await uploadImageFile(file);
       onChange(uploadedUrl);
@@ -61,6 +64,7 @@ export function ImageUploader({
       toast.error(message);
     } finally {
       setIsUploading(false);
+      onUploadingChange?.(false);
     }
   };
 

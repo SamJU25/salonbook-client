@@ -14,6 +14,7 @@ export function ProfileForm() {
   const { refetch } = useSession();
   const [profile, setProfile] = useState<SalonUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
   const [name, setName] = useState("");
@@ -186,6 +187,7 @@ export function ProfileForm() {
               label="Profile Image"
               value={image}
               onChange={setImage}
+              onUploadingChange={setIsImageUploading}
               allowUrlInput
               helperText="Upload a new photo or paste an image URL."
             />
@@ -194,6 +196,7 @@ export function ProfileForm() {
               <Button
                 type="submit"
                 isLoading={isSaving}
+                disabled={isImageUploading}
                 className="w-full px-6 sm:w-auto"
               >
                 Save changes

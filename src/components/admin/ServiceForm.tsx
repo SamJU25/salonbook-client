@@ -41,7 +41,16 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
   const [status, setStatus] = useState<ServiceStatus>(
     initialService?.status || "active"
   );
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const categoryOptions =
+    initialService?.category &&
+    !SALON_CATEGORIES.includes(
+      initialService.category as (typeof SALON_CATEGORIES)[number]
+    )
+      ? [...SALON_CATEGORIES, initialService.category]
+      : [...SALON_CATEGORIES];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,6 +117,7 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
       <Button
         type="submit"
         isLoading={isSubmitting}
+        disabled={isImageUploading}
         className="flex-1 px-6 sm:flex-initial"
       >
         {mode === "create" ? "Create Service" : "Save Changes"}
@@ -162,7 +172,7 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
                 onChange={(e) => setCategory(e.target.value)}
                 className="salon-select h-11 w-full rounded-control border border-border bg-surface text-sm text-text focus:border-primary focus:outline-none"
               >
-                {SALON_CATEGORIES.map((cat) => (
+                {categoryOptions.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
                   </option>
@@ -201,7 +211,7 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
                 id="svc-price"
                 type="number"
                 step="0.01"
-                min="0.01"
+                min="0.50"
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -263,6 +273,7 @@ export function ServiceForm({ mode, initialService }: ServiceFormProps) {
           label="Service Image"
           value={image}
           onChange={setImage}
+          onUploadingChange={setIsImageUploading}
           allowUrlInput={false}
           variant="dropzone"
           required
