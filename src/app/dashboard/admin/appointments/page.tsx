@@ -113,7 +113,7 @@ export default function AdminManageAppointmentsPage() {
             tabIndex={0}
             role="region"
             aria-labelledby="admin-appointments-caption"
-            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs md:block"
+            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs xl:block"
           >
             <table className="w-full border-collapse text-left text-sm">
               <caption id="admin-appointments-caption" className="sr-only">
@@ -226,7 +226,7 @@ export default function AdminManageAppointmentsPage() {
             </table>
           </div>
 
-          <div className="space-y-4 md:hidden">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
             {appointments.map((appt) => {
               const customer = getCustomer(appt.customerId);
               const service = getService(appt.serviceId);
@@ -240,19 +240,19 @@ export default function AdminManageAppointmentsPage() {
                   key={appt._id}
                   className="rounded-card border border-border bg-surface p-4 shadow-xs"
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
                       <h2 className="text-base font-bold text-text">
                         {service?.serviceName || "Salon Service"}
                       </h2>
-                      <p className="text-xs text-muted">
+                      <p className="break-words text-xs text-muted">
                         {customer?.name || "Customer"} · {customer?.email}
                       </p>
                       <p className="mt-1 text-xs font-medium text-text">
                         {appt.appointmentDate} · {appt.timeSlot}
                       </p>
                     </div>
-                    <span className="text-base font-bold text-text">
+                    <span className="shrink-0 text-base font-bold text-text">
                       ${appt.servicePrice.toFixed(2)}
                     </span>
                   </div>
@@ -314,15 +314,15 @@ export default function AdminManageAppointmentsPage() {
         {detailTarget && (
           <div className="space-y-3 text-sm">
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <span className="text-muted">Customer</span>
-              <span className="font-semibold text-text">
+              <span className="shrink-0 text-muted">Customer</span>
+              <span className="min-w-0 break-words text-right font-semibold text-text">
                 {getCustomer(detailTarget.customerId)?.name} (
                 {getCustomer(detailTarget.customerId)?.email})
               </span>
             </div>
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <span className="text-muted">Service</span>
-              <span className="font-semibold text-text">
+              <span className="shrink-0 text-muted">Service</span>
+              <span className="min-w-0 break-words text-right font-semibold text-text">
                 {getService(detailTarget.serviceId)?.serviceName}
               </span>
             </div>

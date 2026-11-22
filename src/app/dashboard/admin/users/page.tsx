@@ -117,7 +117,7 @@ export default function AdminManageUsersPage() {
             tabIndex={0}
             role="region"
             aria-labelledby="admin-users-caption"
-            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs md:block"
+            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs xl:block"
           >
             <table className="w-full border-collapse text-left text-sm">
               <caption id="admin-users-caption" className="sr-only">
@@ -206,7 +206,7 @@ export default function AdminManageUsersPage() {
             </table>
           </div>
 
-          <div className="space-y-4 md:hidden">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
             {users.map((u) => {
               const uid = u._id || u.id;
               return (
@@ -214,12 +214,14 @@ export default function AdminManageUsersPage() {
                   key={uid}
                   className="rounded-card border border-border bg-surface p-4 shadow-xs"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <div>
-                      <h2 className="text-base font-bold text-text">{u.name}</h2>
-                      <p className="text-xs text-muted">{u.email}</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <h2 className="truncate text-base font-bold text-text">{u.name}</h2>
+                      <p className="break-all text-xs text-muted">{u.email}</p>
                     </div>
-                    <StatusBadge status={u.isBlocked ? "blocked" : "active"} />
+                    <span className="shrink-0">
+                      <StatusBadge status={u.isBlocked ? "blocked" : "active"} />
+                    </span>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
                     <Button
@@ -255,12 +257,16 @@ export default function AdminManageUsersPage() {
         {detailUser && (
           <div className="space-y-3 text-sm">
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <span className="text-muted">Full Name</span>
-              <span className="font-semibold text-text">{detailUser.name}</span>
+              <span className="shrink-0 text-muted">Full Name</span>
+              <span className="min-w-0 break-words text-right font-semibold text-text">
+                {detailUser.name}
+              </span>
             </div>
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <span className="text-muted">Email</span>
-              <span className="text-text">{detailUser.email}</span>
+              <span className="shrink-0 text-muted">Email</span>
+              <span className="min-w-0 break-all text-right text-text">
+                {detailUser.email}
+              </span>
             </div>
             <div className="flex justify-between gap-4 border-b border-border pb-2">
               <span className="text-muted">Phone</span>

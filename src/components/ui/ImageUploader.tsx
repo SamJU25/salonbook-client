@@ -13,6 +13,7 @@ interface ImageUploaderProps {
   required?: boolean;
   error?: string;
   helperText?: string;
+  variant?: "compact" | "dropzone";
 }
 
 export function ImageUploader({
@@ -23,6 +24,7 @@ export function ImageUploader({
   required = false,
   error,
   helperText,
+  variant = "compact",
 }: ImageUploaderProps) {
   const inputId = useId();
   const urlInputId = useId();
@@ -62,53 +64,124 @@ export function ImageUploader({
         {label} {required && <span className="text-[#9A352E]">*</span>}
       </label>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        {value ? (
-          <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-control border border-border bg-surface-muted">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={value}
-              alt="Uploaded preview"
-              className="h-full w-full object-cover"
-            />
-            <button
-              type="button"
-              onClick={() => onChange("")}
-              aria-label="Remove image"
-              className="absolute top-1.5 right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-text/80 text-white hover:bg-text cursor-pointer"
-            >
-              <X className="h-3.5 w-3.5" aria-hidden="true" />
-            </button>
-          </div>
-        ) : null}
+      {variant === "dropzone" ? (
+        <div className="space-y-2.5">
+          {value ? (
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-control border border-border bg-surface-muted">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={value}
+                alt="Uploaded preview"
+                className="h-full w-full object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => onChange("")}
+                aria-label="Remove image"
+                className="absolute top-2.5 right-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-text/80 text-white shadow-xs hover:bg-text cursor-pointer"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+            </div>
+          ) : null}
 
-        <label
-          htmlFor={inputId}
-          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-control border border-dashed border-border bg-surface px-4 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-secondary/40 ${
-            isUploading ? "pointer-events-none opacity-60" : ""
-          }`}
-        >
-          {isUploading ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-              <span>Uploading image...</span>
-            </>
-          ) : (
-            <>
-              <ImagePlus className="h-4 w-4" aria-hidden="true" />
-              <span>{value ? "Replace uploaded image" : "Upload image file"}</span>
-            </>
-          )}
-          <input
-            id={inputId}
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
-            onChange={handleFileChange}
-            disabled={isUploading}
-            className="sr-only"
-          />
-        </label>
-      </div>
+          <label
+            htmlFor={inputId}
+            className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-border bg-page/60 px-4 text-center transition-colors hover:border-primary hover:bg-secondary/35 ${
+              value ? "py-3" : "min-h-[190px] py-6"
+            } ${isUploading ? "pointer-events-none opacity-60" : ""}`}
+          >
+            {isUploading ? (
+              <>
+                <Loader2
+                  className="h-5 w-5 animate-spin text-primary"
+                  aria-hidden="true"
+                />
+                <span className="text-sm font-semibold text-primary">
+                  Uploading image...
+                </span>
+              </>
+            ) : value ? (
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                <ImagePlus className="h-4 w-4" aria-hidden="true" />
+                <span>Replace uploaded photo</span>
+              </div>
+            ) : (
+              <>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-primary">
+                  <ImagePlus className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-text">
+                    Click to upload treatment photo
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted">
+                    JPEG, PNG, WEBP, or GIF up to 5 MB
+                  </p>
+                </div>
+              </>
+            )}
+            <input
+              id={inputId}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={handleFileChange}
+              disabled={isUploading}
+              className="sr-only"
+            />
+          </label>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          {value ? (
+            <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-control border border-border bg-surface-muted">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={value}
+                alt="Uploaded preview"
+                className="h-full w-full object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => onChange("")}
+                aria-label="Remove image"
+                className="absolute top-1.5 right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-text/80 text-white hover:bg-text cursor-pointer"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+            </div>
+          ) : null}
+
+          <label
+            htmlFor={inputId}
+            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-control border border-dashed border-border bg-surface px-4 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-secondary/40 ${
+              isUploading ? "pointer-events-none opacity-60" : ""
+            }`}
+          >
+            {isUploading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                <span>Uploading image...</span>
+              </>
+            ) : (
+              <>
+                <ImagePlus className="h-4 w-4" aria-hidden="true" />
+                <span>
+                  {value ? "Replace uploaded image" : "Upload image file"}
+                </span>
+              </>
+            )}
+            <input
+              id={inputId}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={handleFileChange}
+              disabled={isUploading}
+              className="sr-only"
+            />
+          </label>
+        </div>
+      )}
 
       {allowUrlInput && (
         <div>

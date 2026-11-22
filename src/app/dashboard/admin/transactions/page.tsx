@@ -5,6 +5,11 @@ import { toast } from "sonner";
 import { PageLoader } from "@/components/ui/Loader";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { apiRequest } from "@/lib/api-client";
+import {
+  formatCurrency,
+  formatDateEnUS,
+  formatDateTimeEnUS,
+} from "@/lib/format";
 import type { AppointmentCustomerRef, SalonTransaction } from "@/types";
 
 export default function AdminTransactionsPage() {
@@ -55,7 +60,7 @@ export default function AdminTransactionsPage() {
             tabIndex={0}
             role="region"
             aria-labelledby="admin-transactions-caption"
-            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs md:block"
+            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs xl:block"
           >
             <table className="w-full border-collapse text-left text-sm">
               <caption id="admin-transactions-caption" className="sr-only">
@@ -108,7 +113,7 @@ export default function AdminTransactionsPage() {
                           : "—"}
                       </td>
                       <td className="px-4 py-3.5 font-bold text-text">
-                        ${tx.amount.toFixed(2)}
+                        {formatCurrency(tx.amount, tx.currency)}
                       </td>
                       <td className="px-4 py-3.5 uppercase text-muted">
                         {tx.currency}
@@ -123,7 +128,7 @@ export default function AdminTransactionsPage() {
                         <StatusBadge status={tx.status} />
                       </td>
                       <td className="px-4 py-3.5 text-xs text-muted">
-                        {new Date(tx.createdAt).toLocaleString()}
+                        {formatDateTimeEnUS(tx.createdAt)}
                       </td>
                     </tr>
                   );
@@ -132,7 +137,7 @@ export default function AdminTransactionsPage() {
             </table>
           </div>
 
-          <div className="space-y-4 md:hidden">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
             {transactions.map((tx) => {
               const customer =
                 typeof tx.customerId === "object" && tx.customerId !== null
@@ -149,23 +154,25 @@ export default function AdminTransactionsPage() {
                   key={tx._id}
                   className="rounded-card border border-border bg-surface p-4 shadow-xs"
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
                       <h2 className="text-base font-bold text-text">
                         {appt?.serviceId?.serviceName || "Salon Service"}
                       </h2>
-                      <p className="text-xs text-muted">
+                      <p className="break-words text-xs text-muted">
                         {customer?.name} · {customer?.email}
                       </p>
                     </div>
-                    <StatusBadge status={tx.status} />
+                    <span className="shrink-0">
+                      <StatusBadge status={tx.status} />
+                    </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-sm">
                     <span className="font-bold text-text">
-                      ${tx.amount.toFixed(2)} {tx.currency.toUpperCase()}
+                      {formatCurrency(tx.amount, tx.currency)} {tx.currency.toUpperCase()}
                     </span>
                     <span className="text-xs text-muted">
-                      {new Date(tx.createdAt).toLocaleDateString()}
+                      {formatDateEnUS(tx.createdAt)}
                     </span>
                   </div>
                 </article>

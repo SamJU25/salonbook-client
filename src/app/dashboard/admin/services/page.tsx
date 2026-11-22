@@ -120,7 +120,7 @@ export default function AdminManageServicesPage() {
             tabIndex={0}
             role="region"
             aria-labelledby="admin-services-caption"
-            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs md:block"
+            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs xl:block"
           >
             <table className="w-full border-collapse text-left text-sm">
               <caption id="admin-services-caption" className="sr-only">
@@ -197,7 +197,7 @@ export default function AdminManageServicesPage() {
             </table>
           </div>
 
-          <div className="space-y-4 md:hidden">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
             {services.map((svc) => (
               <article
                 key={svc._id}

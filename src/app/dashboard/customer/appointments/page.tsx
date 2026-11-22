@@ -137,7 +137,7 @@ export default function CustomerAppointmentsPage() {
             tabIndex={0}
             role="region"
             aria-labelledby="my-appointments-table-caption"
-            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs md:block"
+            className="hidden overflow-x-auto rounded-card border border-border bg-surface shadow-xs xl:block"
           >
             <table className="w-full border-collapse text-left text-sm">
               <caption id="my-appointments-table-caption" className="sr-only">
@@ -240,8 +240,8 @@ export default function CustomerAppointmentsPage() {
             </table>
           </div>
 
-          {/* Mobile Card List */}
-          <div className="space-y-4 md:hidden">
+          {/* Mobile / Tablet Card List */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
             {appointments.map((appt) => {
               const service = getServiceRef(appt.serviceId);
               return (
