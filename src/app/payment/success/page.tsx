@@ -4,11 +4,12 @@ import { CheckCircle2, Clock } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { PageLoader } from "@/components/ui/Loader";
 import { apiRequest } from "@/lib/api-client";
-import { useSession } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import type { SalonTransaction } from "@/types";
 
 function PaymentSuccessContent() {
@@ -22,8 +23,15 @@ function PaymentSuccessContent() {
   const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
-    if (!isSessionPending && !session?.user) {
+    if (isSessionPending) return;
+    const user = session?.user as { isBlocked?: boolean } | undefined;
+    if (!user) {
       router.replace("/sign-in?callbackUrl=/dashboard/customer/appointments");
+      return;
+    }
+    if (user.isBlocked) {
+      toast.error("Your account has been blocked by an administrator.");
+      void signOut().then(() => router.replace("/sign-in"));
     }
   }, [isSessionPending, session, router]);
 
