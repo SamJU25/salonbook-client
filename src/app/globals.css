@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Typography */
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-manrope);
+
+  /* Core surfaces */
+  --color-page: #F7F5F0;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F0EEE7;
+
+  /* Brand */
+  --color-primary: #31594B;
+  --color-primary-hover: #26483D;
+  --color-secondary: #E7EEE7;
+
+  /* Accents */
+  --color-accent: #B97762;
+  --color-accent-soft: #F3E7E1;
+  --color-accent-text: #8E503E;
+  --color-warm-sand: #EFE7D9;
+
+  /* Text and borders */
+  --color-text: #252A26;
+  --color-muted: #68716A;
+  --color-border: #E5E1D8;
+
+  /* Dashboard */
+  --color-sidebar: #243F36;
+  --color-sidebar-text: #EAEFEA;
+  --color-sidebar-muted: #B6C4BB;
+  --color-sidebar-active: #31594B;
+  --color-topbar: #FFFFFF;
+  --color-topbar-border: #E5E1D8;
+
+  /* Statuses */
+  --color-status-pending-bg: #FFF3D7;
+  --color-status-pending-text: #775010;
+  --color-status-pending-border: #EEDBAE;
+
+  --color-status-confirmed-bg: #E8F2EA;
+  --color-status-confirmed-text: #24583B;
+  --color-status-confirmed-border: #C9DECD;
+
+  --color-status-cancelled-bg: #FBE9E7;
+  --color-status-cancelled-text: #9A352E;
+  --color-status-cancelled-border: #F0C8C4;
+
+  --color-status-paid-bg: #E5F1EF;
+  --color-status-paid-text: #205B55;
+  --color-status-paid-border: #C7E0DB;
+
+  --color-status-unpaid-bg: #FFF3D7;
+  --color-status-unpaid-text: #775010;
+  --color-status-unpaid-border: #EEDBAE;
+
+  --color-status-active-bg: #E8F2EA;
+  --color-status-active-text: #24583B;
+  --color-status-active-border: #C9DECD;
+
+  --color-status-inactive-bg: #EFF0ED;
+  --color-status-inactive-text: #58615A;
+  --color-status-inactive-border: #DDE1DC;
+
+  /* Radius */
+  --radius-control: 12px;
+  --radius-card: 18px;
+  --radius-panel: 24px;
+
+  /* Shadows */
+  --shadow-card: 0 6px 20px rgb(36 63 54 / 0.06);
+  --shadow-card-hover: 0 12px 28px rgb(36 63 54 / 0.10);
+  --shadow-dropdown: 0 12px 32px rgb(36 63 54 / 0.12);
+  --shadow-modal: 0 20px 60px rgb(36 63 54 / 0.18);
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+::selection {
+  background: #E7EEE7;
+  color: #243F36;
+}
+
+:focus-visible {
+  outline: 2px solid #31594B;
+  outline-offset: 3px;
+}
+
+/* Native <dialog> modal scroll containment (modern-web-guidance) */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: rgb(36 63 54 / 0.45);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Form interaction validation styling */
+input:user-invalid,
+textarea:user-invalid,
+select:user-invalid {
+  border-color: #9A352E;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
