@@ -1,5 +1,6 @@
-import { Clock, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import { BrandMark } from "@/components/ui/BrandMark";
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-control bg-primary text-white">
-                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                <BrandMark className="h-4.5 w-4.5" />
               </span>
               <span className="font-display text-2xl font-semibold text-white">
                 SalonBook
@@ -112,9 +113,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-sidebar-muted sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-[#C8D5CD] sm:flex-row">
           <p>&copy; {new Date().getFullYear()} SalonBook. All rights reserved.</p>
-          <p>Botanical Elegance &mdash; Warm Editorial Wellness</p>
+          <p>Thoughtful salon care, effortlessly scheduled.</p>
         </div>
       </div>
     </footer>
