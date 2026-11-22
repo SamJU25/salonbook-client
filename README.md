@@ -1,50 +1,76 @@
-# SalonBook Client — Next.js Frontend
+# SalonBook Client
 
-Frontend web application for **SalonBook**, a calm, editorial salon appointment booking and Stripe payment platform built with Next.js (App Router), TypeScript, Tailwind CSS v4, and Better Auth.
+Web client for SalonBook, a role-based salon appointment booking and payment application built with Next.js App Router, TypeScript, Tailwind CSS, and Better Auth.
+
+- **Live Website:** https://salonbook-client-black.vercel.app
+- **Backend API:** https://salonbook-server-ruddy.vercel.app
+- **Client Repository:** https://github.com/SamJU25/salonbook-client
+- **Server Repository:** https://github.com/SamJU25/salonbook-server
 
 ## Important Features
 
-- **Public Salon Showcase:** Editorial Hero banner, 6 featured active salon services, dynamic service category explorer, and a 4-step *How Booking Works* guide.
-- **Browse, Search, Filter & Sort:** Full `/services` catalog with search by service name, category filtering, and price sorting (Low to High / High to Low).
-- **Authentication & Role Protection:** Better Auth with Email/Password registration (including password complexity checks and ImgBB image upload / URL support), Google OAuth, JWT token issuance for the Express backend, and strict route isolation for Customer and Admin dashboards.
-- **Protected Appointment Booking:** Dynamic `/services/[id]` details page with live slot availability, conflict prevention, and booking notes.
-- **Customer Dashboard:** Overview metrics, My Appointments table with details modal, pending-only cancellation, Stripe Checkout payment trigger, Payment Success/Cancel pages, and My Profile management.
-- **Admin Dashboard:** 6 live overview statistics cards, Manage Services (create/edit with ImgBB image upload only, activate/deactivate, delete), Manage Appointments (details, confirm pending, cancel), Manage Users (details, block/unblock), read-only Payment Transactions ledger, and My Profile.
+### Customer Flow
+- Browse active salon services on the landing page, explore 7 service categories with live counts, and search, filter, or sort the `/services` catalog by price or duration.
+- View service details and book available time slots on `/services/[id]` (protected route; guests are redirected to Sign In, Admins are prevented from submitting customer bookings).
+- Manage bookings in `/dashboard/customer/appointments` — inspect details, cancel pending requests, pay for confirmed appointments through Stripe Checkout, and review updated payment status after webhook verification.
+- Edit name, phone number, and profile image from `/dashboard/customer/profile`.
+
+### Admin Flow
+- View platform metrics (registered customers, active services, total/pending/confirmed appointments, and successful payments) in `/dashboard/admin`.
+- Create, edit, toggle active/inactive status, and delete salon services with image uploads hosted via ImgBB (no raw URL input on service forms).
+- Confirm pending requests or cancel pending/unpaid appointments in `/dashboard/admin/appointments`.
+- Review customer accounts and block/unblock access in `/dashboard/admin/users`.
+- Inspect verified payment records in the read-only `/dashboard/admin/transactions` ledger.
+
+### Authentication & Route Protection
+- Email/password sign-up (enforces minimum 6 characters, one uppercase, and one lowercase letter, plus image upload or URL) and Google OAuth powered by Better Auth.
+- Public sign-ups always create `customer` accounts (`role` and `isBlocked` are locked from client input).
+- Separate `/dashboard/customer` and `/dashboard/admin` layouts with client session guards paired with Express JWT/role enforcement on the API.
 
 ## Technology Stack
 
-- **Framework:** Next.js (App Router), React, TypeScript
-- **Styling:** Tailwind CSS v4 (`@theme inline` Botanical Elegance tokens, `Cormorant Garamond` & `Manrope`)
-- **Authentication:** Better Auth (`mongodbAdapter`, `jwt()` plugin, Google OAuth)
-- **Notifications & Icons:** `sonner`, `lucide-react`
-- **Validation:** Zod
+- **Framework:** Next.js 15 (App Router), React, TypeScript
+- **Styling:** Tailwind CSS v4 (`Cormorant Garamond` and `Manrope` via `next/font/google`)
+- **Auth & Sessions:** Better Auth (`mongodbAdapter`, `jwt` plugin, Google OAuth)
+- **Validation & Feedback:** Zod, `sonner`, `lucide-react`
+
+## App Routes Overview
+
+| Route | Access | Purpose |
+|---|---|---|
+| `/` | Public | Hero showcase, 6 featured services, categories, booking steps |
+| `/services` | Public | Catalog with search, category filter, and price/duration sort |
+| `/services/[id]` | Protected | Treatment details and time-slot appointment booking |
+| `/sign-in`, `/sign-up` | Public | Email/password and Google authentication |
+| `/dashboard/customer/*` | Customer | Overview stats, appointments + Stripe pay, profile |
+| `/dashboard/admin/*` | Admin | Overview stats, services CRUD, appointments, users, transactions, profile |
+| `/payment/success`, `/payment/cancel` | Protected | Stripe checkout return verification and retry screen |
 
 ## Installation Instructions
 
-1. Clone the client repository and enter the directory:
+1. Clone the repository:
    ```bash
-   git clone <CLIENT_REPO_URL>
+   git clone https://github.com/SamJU25/salonbook-client.git
    cd salonbook-client
    ```
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Create `.env.local` from `.env.example`:
+3. Copy `.env.example` to `.env.local` and fill in your values (never commit `.env.local`):
    ```bash
    cp .env.example .env.local
    ```
-4. Fill in the environment variable values in `.env.local` (never commit `.env` or `.env.local`).
 
 ## How to Run the Project Locally
 
-1. Ensure the **SalonBook Server** (`salonbook-server`) is running on `http://localhost:5000` and seeded (`npm run seed`).
-2. Start the Next.js development server:
+1. Start the backend API (`salonbook-server`) locally on port `5000` and seed the database (`npm run seed`).
+2. Start the Next.js dev server:
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
-3. **Run type checks, lint, and production build:**
+   Visit http://localhost:3000 in your browser.
+3. Run checks and production build:
    ```bash
    npm run typecheck
    npm run lint
@@ -54,21 +80,14 @@ Frontend web application for **SalonBook**, a calm, editorial salon appointment 
 
 ## Required Environment Variables
 
-Provide these variable names in `.env.local` / deployment settings (never commit actual secret values):
+Add these variable names to `.env.local` locally or in your deployment dashboard (names only; keep all credential values private):
 
-- `NEXT_PUBLIC_API_URL`
-- `BETTER_AUTH_URL`
-- `NEXT_PUBLIC_APP_URL`
-- `BETTER_AUTH_SECRET`
-- `MONGODB_URI`
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-
-## Live Website Link
-
-- Live Application: `https://your-salonbook-live-url.vercel.app` *(update after deployment)*
-
-## Client and Server Repository Links
-
-- **Client Repository:** `https://github.com/SamJU25/salonbook-client` *(update with final repo URL)*
-- **Server Repository:** `https://github.com/SamJU25/salonbook-server` *(update with final repo URL)*
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_API_URL` | Base API URL for the Express backend (for example `http://localhost:5000/api/v1`) |
+| `NEXT_PUBLIC_APP_URL` | Public URL of this Next.js client (`http://localhost:3000` locally) |
+| `BETTER_AUTH_URL` | Base origin used by Better Auth callbacks and JWT issuer checks |
+| `BETTER_AUTH_SECRET` | Random signing secret shared with Better Auth |
+| `MONGODB_URI` | MongoDB connection string used by Better Auth's MongoDB adapter |
+| `GOOGLE_CLIENT_ID` | Google OAuth 2.0 client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 client secret |
