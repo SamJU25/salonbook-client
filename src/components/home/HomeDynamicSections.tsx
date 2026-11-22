@@ -35,7 +35,7 @@ const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "Hair Treatment": {
     image: "/images/services/hair-treatment.jpg",
-    description: "Plant keratin & argan oil smoothing.",
+    description: "Nano-mist steam & silk keratin repair.",
   },
   Makeup: {
     image: "/images/services/makeup.jpg",
