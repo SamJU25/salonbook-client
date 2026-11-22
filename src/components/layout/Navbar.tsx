@@ -83,7 +83,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur-xs">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="inline-flex items-center gap-2.5 text-text focus-visible:rounded-lg"
@@ -216,10 +216,10 @@ export function Navbar() {
               <Link
                 href="/sign-in"
                 aria-current={pathname === "/sign-in" ? "page" : undefined}
-                className={`inline-flex h-11 items-center justify-center rounded-control border px-4 text-sm font-semibold transition-colors ${
+                className={`inline-flex h-10 items-center justify-center px-3 text-sm font-semibold transition-colors ${
                   pathname === "/sign-in"
-                    ? "border-primary bg-secondary text-primary"
-                    : "border-border bg-surface text-text hover:border-primary hover:text-primary"
+                    ? "text-primary"
+                    : "text-text/80 hover:text-primary"
                 }`}
               >
                 Sign In
@@ -227,7 +227,11 @@ export function Navbar() {
               <Link
                 href="/sign-up"
                 aria-current={pathname === "/sign-up" ? "page" : undefined}
-                className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                className={`inline-flex h-10 items-center justify-center rounded-control px-4 text-sm font-semibold text-white transition-colors ${
+                  pathname === "/sign-up"
+                    ? "bg-primary-hover"
+                    : "bg-primary hover:bg-primary-hover"
+                }`}
               >
                 Sign Up
               </Link>
@@ -268,7 +272,14 @@ export function Navbar() {
                 <Link href={dashboardHref} className={navLinkClass("/dashboard")}>
                   {dashboardNavLabel}
                 </Link>
-                {!isAdmin && (
+                {isAdmin ? (
+                  <Link
+                    href="/dashboard/admin/services"
+                    className={navLinkClass("/dashboard/admin/services")}
+                  >
+                    Manage Services
+                  </Link>
+                ) : (
                   <Link
                     href="/dashboard/customer/appointments"
                     className={navLinkClass("/dashboard/customer/appointments")}
@@ -276,6 +287,14 @@ export function Navbar() {
                     My Appointments
                   </Link>
                 )}
+                <Link
+                  href={isAdmin ? "/dashboard/admin/profile" : "/dashboard/customer/profile"}
+                  className={navLinkClass(
+                    isAdmin ? "/dashboard/admin/profile" : "/dashboard/customer/profile"
+                  )}
+                >
+                  My Profile
+                </Link>
                 <div className="mt-2 border-t border-border pt-3">
                   <p className="px-3 text-xs font-semibold text-muted">
                     Signed in as {user.name}
@@ -291,24 +310,28 @@ export function Navbar() {
                 </div>
               </>
             ) : (
-              <div className="mt-3 flex flex-col gap-2 border-t border-border pt-3">
-                <Link
-                  href="/services"
-                  className="inline-flex h-11 items-center justify-center rounded-control bg-primary px-4 text-sm font-semibold text-white"
-                >
-                  Book Appointment
-                </Link>
+              <div className="mt-3 flex flex-col gap-2.5 border-t border-border pt-3">
                 <Link
                   href="/sign-in"
-                  className="inline-flex h-11 items-center justify-center rounded-control border border-border bg-surface px-4 text-sm font-semibold text-text"
+                  aria-current={pathname === "/sign-in" ? "page" : undefined}
+                  className={`inline-flex h-11 items-center justify-center rounded-control border px-4 text-sm font-semibold transition-colors ${
+                    pathname === "/sign-in"
+                      ? "border-primary bg-secondary text-primary"
+                      : "border-border bg-surface text-text hover:border-primary hover:text-primary"
+                  }`}
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/sign-up"
-                  className="py-1.5 text-center text-xs font-semibold text-primary hover:underline"
+                  aria-current={pathname === "/sign-up" ? "page" : undefined}
+                  className={`inline-flex h-11 items-center justify-center rounded-control px-4 text-sm font-semibold text-white transition-colors ${
+                    pathname === "/sign-up"
+                      ? "bg-primary-hover"
+                      : "bg-primary hover:bg-primary-hover"
+                  }`}
                 >
-                  New to SalonBook? Create an account
+                  Sign Up
                 </Link>
               </div>
             )}

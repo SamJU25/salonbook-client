@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   CalendarCheck,
   CreditCard,
   Leaf,
@@ -13,7 +12,7 @@ import { HomeDynamicSections } from "@/components/home/HomeDynamicSections";
 
 const HERO_TRUST_POINTS = [
   {
-    label: "Easy online appointment requests",
+    label: "Effortless online booking",
     icon: CalendarCheck,
   },
   {
@@ -60,45 +59,55 @@ const BOOKING_STEPS = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero Banner */}
-      <section className="relative overflow-hidden border-b border-border bg-sidebar lg:flex lg:min-h-[610px] lg:items-center">
-        <div className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="relative z-10 lg:col-span-6">
-              <p className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-secondary/95 uppercase">
-                <span className="h-px w-7 bg-accent" aria-hidden="true" />
-                Botanical Wellness &amp; Salon Studio
-              </p>
-              <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white text-balance sm:text-5xl lg:text-6xl">
-                Calm, intentional care for hair, skin, and ritual.
-              </h1>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-sidebar-muted sm:text-lg">
-                Discover thoughtful salon treatments, request a time that works
-                for you, and keep your appointments effortlessly organized.
-              </p>
+      {/* Full-Bleed Sunlit Salon Hero Banner */}
+      <section className="relative overflow-hidden border-b border-border bg-sidebar">
+        <Image
+          src="/images/hero-salon.jpg"
+          alt="Warm sunlit SalonBook botanical salon interior with oak styling stations and natural greenery"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
 
-              <div className="mt-8">
-                <Link
-                  href="/services"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-control bg-white px-6 text-sm font-bold text-primary shadow-card transition-colors hover:bg-secondary"
-                >
-                  Explore Salon Services
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
+        {/* Mobile scrim: light warm shadow veil so studio stays luminous while text remains crisp */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,22,19,0.56)_0%,rgba(24,22,19,0.62)_55%,rgba(24,22,19,0.48)_100%)] md:hidden"
+        />
+        {/* Desktop/Tablet scrim: warm neutral left-only feather fading to 0% so right-side daylight stays untouched */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 hidden md:block bg-[linear-gradient(90deg,rgba(24,22,19,0.66)_0%,rgba(24,22,19,0.44)_32%,rgba(24,22,19,0.12)_50%,rgba(24,22,19,0)_64%)]"
+        />
 
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-panel border border-white/15 shadow-modal">
-                <Image
-                  src="/images/hero-salon.jpg"
-                  alt="Warm sunlit SalonBook botanical salon interior with oak styling stations and natural greenery"
-                  fill
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 50vw"
-                  className="object-cover object-center"
-                />
-              </div>
+        <div className="relative z-10 mx-auto flex min-h-[480px] w-full max-w-7xl items-center px-4 py-14 sm:min-h-[540px] sm:px-6 lg:min-h-[600px] lg:px-8">
+          <div className="max-w-xl">
+            <p className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-[#F5F3EE] uppercase">
+              <span className="h-px w-7 bg-accent" aria-hidden="true" />
+              Botanical Wellness &amp; Salon Studio
+            </p>
+            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-white text-balance drop-shadow-[0_1px_12px_rgba(24,22,19,0.38)] sm:text-5xl lg:text-[3.5rem]">
+              Calm, intentional care for hair, skin, and ritual.
+            </h1>
+            <p className="mt-5 max-w-[540px] text-base leading-relaxed text-[#F5F3EE] drop-shadow-[0_1px_8px_rgba(24,22,19,0.42)] sm:text-lg">
+              Thoughtfully curated hair, skin, and wellness treatments —
+              delivered with care, in a space designed to help you slow down.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
+              <Link
+                href="/services"
+                className="inline-flex h-12 w-full items-center justify-center rounded-control bg-primary px-6 text-sm font-semibold text-white shadow-card transition-colors hover:bg-primary-hover sm:w-auto"
+              >
+                Book an Appointment
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex h-12 w-full items-center justify-center rounded-control bg-secondary px-6 text-sm font-semibold text-primary shadow-card transition-colors hover:bg-[#DAE5DA] sm:w-auto"
+              >
+                Explore Salon Services
+              </Link>
             </div>
           </div>
         </div>
@@ -160,10 +169,9 @@ export default function HomePage() {
               <div className="mt-8">
                 <Link
                   href="/services"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-control bg-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                  className="inline-flex h-12 items-center justify-center rounded-control bg-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
                 >
                   Explore Salon Services
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </div>
             </div>
