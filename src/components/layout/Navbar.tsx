@@ -25,9 +25,16 @@ export function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const user = session?.user as
-    | { name?: string; email?: string; image?: string | null; role?: string }
+  const rawUser = session?.user as
+    | {
+        name?: string;
+        email?: string;
+        image?: string | null;
+        role?: string;
+        isBlocked?: boolean;
+      }
     | undefined;
+  const user = rawUser && !rawUser.isBlocked ? rawUser : undefined;
 
   const isAdmin = user?.role === "admin";
   const dashboardHref = isAdmin ? "/dashboard/admin" : "/dashboard/customer";

@@ -78,6 +78,10 @@ export function BrowseServicesClient({
   const [isLoading, setIsLoading] = useState(!hasInitialData);
   const [error, setError] = useState<string | null>(null);
   const skipInitialFetchRef = useRef(hasInitialData);
+  const latestRequestIdRef = useRef(0);
+
+  const apiSort =
+    sort === "price_asc" || sort === "price_desc" ? sort : "newest";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -87,20 +91,21 @@ export function BrowseServicesClient({
   }, [searchInput]);
 
   const fetchServices = useCallback(async () => {
+    const requestId = ++latestRequestIdRef.current;
     setIsLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams();
       if (debouncedSearch) params.set("search", debouncedSearch);
       if (category && category !== "all") params.set("category", category);
-      const apiSort =
-        sort === "price_asc" || sort === "price_desc" ? sort : "newest";
       params.set("sort", apiSort);
 
       const data = await apiRequest<{
         services: SalonService[];
         categories: string[];
       }>(`/services?${params.toString()}`, { auth: false });
+
+      if (requestId !== latestRequestIdRef.current) return;
 
       const nextServices = data.services || [];
       setServices(nextServices);
@@ -112,29 +117,32 @@ export function BrowseServicesClient({
         setCategories(merged);
       }
     } catch (err) {
+      if (requestId !== latestRequestIdRef.current) return;
       setError(
         err instanceof Error
           ? err.message
           : "Failed to load salon services. Please try again."
       );
     } finally {
-      setIsLoading(false);
+      if (requestId === latestRequestIdRef.current) {
+        setIsLoading(false);
+      }
     }
-  }, [debouncedSearch, category, sort]);
+  }, [debouncedSearch, category, apiSort]);
 
   useEffect(() => {
     if (
       skipInitialFetchRef.current &&
       debouncedSearch === "" &&
       category === initialCategory &&
-      sort === "newest"
+      apiSort === "newest"
     ) {
       skipInitialFetchRef.current = false;
       return;
     }
     skipInitialFetchRef.current = false;
     void fetchServices();
-  }, [fetchServices, debouncedSearch, category, initialCategory, sort]);
+  }, [fetchServices, debouncedSearch, category, initialCategory, apiSort]);
 
   const displayedServices = useMemo(() => {
     if (sort === "duration_asc") {

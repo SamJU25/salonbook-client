@@ -10,17 +10,13 @@ import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 import { Button } from "@/components/ui/Button";
 import { PageLoader } from "@/components/ui/Loader";
 import { authClient, signIn, signOut, useSession } from "@/lib/auth-client";
+import { getSafeCallbackUrl, resolveCustomerDestination } from "@/lib/callback";
 import { signInSchema } from "@/lib/validators";
-
-function getSafeCallback(raw: string | null): string | null {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return null;
-  return raw;
-}
 
 function SignInFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = getSafeCallback(searchParams.get("callbackUrl"));
+  const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"));
   const { data: session } = useSession();
 
   const [email, setEmail] = useState("");
@@ -35,7 +31,7 @@ function SignInFormContent() {
     if (u.role === "admin") {
       router.replace("/dashboard/admin");
     } else {
-      router.replace(callbackUrl || "/dashboard/customer");
+      router.replace(resolveCustomerDestination(callbackUrl));
     }
   }, [session, router, callbackUrl]);
 
@@ -83,9 +79,7 @@ function SignInFormContent() {
       const destination =
         signedInUser?.role === "admin"
           ? "/dashboard/admin"
-          : callbackUrl && !callbackUrl.startsWith("/dashboard/admin")
-            ? callbackUrl
-            : "/dashboard/customer";
+          : resolveCustomerDestination(callbackUrl);
       router.push(destination);
       router.refresh();
     } catch {

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { PREDEFINED_TIME_SLOTS } from "./constants";
+import { isValidCalendarDate } from "./date";
 
 export const passwordSchema = z
   .string()
@@ -34,7 +35,8 @@ export const signInSchema = z.object({
 export const bookingSchema = z.object({
   appointmentDate: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Please choose a valid appointment date"),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Please choose a valid appointment date")
+    .refine(isValidCalendarDate, "Please choose a valid calendar date"),
   timeSlot: z.enum(PREDEFINED_TIME_SLOTS, {
     errorMap: () => ({ message: "Please select an available time slot" }),
   }),
@@ -60,7 +62,8 @@ export const serviceFormSchema = z.object({
     .max(2000, "Description cannot exceed 2000 characters"),
   price: z.coerce
     .number({ invalid_type_error: "Price must be a valid number" })
-    .positive("Price must be greater than 0"),
+    .finite("Price must be a valid number")
+    .min(0.5, "Price must be at least $0.50"),
   duration: z.coerce
     .number({ invalid_type_error: "Duration must be a whole number" })
     .int("Duration must be a whole number of minutes")
@@ -68,7 +71,13 @@ export const serviceFormSchema = z.object({
   image: z
     .string()
     .trim()
-    .min(1, "Please upload a service image"),
+    .refine(
+      (val) =>
+        val.startsWith("https://") ||
+        val.startsWith("http://") ||
+        val.startsWith("/images/"),
+      "Please provide a valid service image"
+    ),
   status: z.enum(["active", "inactive"]).default("active"),
 });
 

@@ -60,7 +60,7 @@ export function ModalDialog({
         }
         pressedOutsideRef.current = false;
       }}
-      className="m-auto w-[min(92vw,540px)] rounded-[20px] border border-border bg-surface p-6 text-text shadow-modal"
+      className="m-auto max-h-[90dvh] w-[min(92vw,540px)] overflow-y-auto rounded-[20px] border border-border bg-surface p-6 text-text shadow-modal"
     >
       <h2 id={titleId} className="text-xl font-bold text-text">
         {title}

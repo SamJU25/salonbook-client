@@ -156,6 +156,27 @@ function PaymentSuccessContent() {
               Appointments.
             </p>
           </>
+        ) : attempts >= 8 ? (
+          <>
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-status-pending-bg text-status-pending-text">
+              <Clock className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <h1 className="mt-5 font-display text-3xl font-semibold text-text sm:text-4xl">
+              Confirmation Taking Longer Than Expected
+            </h1>
+            <p className="mt-2 text-sm text-muted">
+              Stripe hasn&apos;t finished confirming yet. You can check again now or view your status in My Appointments.
+            </p>
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setAttempts(0)}
+                className="inline-flex h-10 items-center justify-center rounded-control border border-border bg-surface px-4 text-sm font-semibold text-primary hover:bg-secondary cursor-pointer"
+              >
+                Check Status Again
+              </button>
+            </div>
+          </>
         ) : (
           <>
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-status-pending-bg text-status-pending-text">

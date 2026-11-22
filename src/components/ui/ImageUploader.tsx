@@ -32,9 +32,16 @@ export function ImageUploader({
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
+    const allowedTypes = new Set([
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+    ]);
+    if (!allowedTypes.has(file.type)) {
       toast.error("Please select a valid image file (JPEG, PNG, WEBP, or GIF)");
       return;
     }
@@ -54,7 +61,6 @@ export function ImageUploader({
       toast.error(message);
     } finally {
       setIsUploading(false);
-      e.target.value = "";
     }
   };
 
@@ -193,7 +199,8 @@ export function ImageUploader({
           </label>
           <input
             id={urlInputId}
-            type="url"
+            type="text"
+            inputMode="url"
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="https://example.com/photo.jpg"

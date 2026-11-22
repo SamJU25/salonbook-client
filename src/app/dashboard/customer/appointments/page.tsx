@@ -325,8 +325,8 @@ export default function CustomerAppointmentsPage() {
         {detailTarget && (
           <div className="space-y-3 text-sm">
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <span className="text-muted">Service</span>
-              <span className="font-semibold text-text">
+              <span className="shrink-0 text-muted">Service</span>
+              <span className="min-w-0 break-words text-right font-semibold text-text">
                 {getServiceRef(detailTarget.serviceId)?.serviceName || "Service"}
               </span>
             </div>
@@ -365,7 +365,7 @@ export default function CustomerAppointmentsPage() {
             {detailTarget.message && (
               <div>
                 <span className="block text-muted">Your Note</span>
-                <p className="mt-1 rounded-control bg-page p-3 text-text">
+                <p className="mt-1 break-words rounded-control bg-page p-3 text-text">
                   {detailTarget.message}
                 </p>
               </div>

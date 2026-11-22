@@ -67,6 +67,15 @@ export async function apiRequest<T>(
   const payload = (await response.json().catch(() => null)) as ApiEnvelope<T> | null;
 
   if (!response.ok || !payload?.success) {
+    if (
+      response.status === 403 &&
+      payload?.code === "ACCOUNT_BLOCKED" &&
+      typeof window !== "undefined"
+    ) {
+      void authClient.signOut().finally(() => {
+        window.location.replace("/sign-in");
+      });
+    }
     throw new ApiClientError(
       response.status,
       payload?.message || "Something went wrong. Please try again.",

@@ -11,6 +11,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { apiRequest } from "@/lib/api-client";
 import { signOut, useSession } from "@/lib/auth-client";
 import { PREDEFINED_TIME_SLOTS } from "@/lib/constants";
+import { parseTimeSlotMinutes } from "@/lib/date";
 import { formatCurrency } from "@/lib/format";
 import { bookingSchema } from "@/lib/validators";
 import type { SalonService } from "@/types";
@@ -142,6 +143,7 @@ export default function ServiceDetailsPage() {
           ? err.message
           : "Unable to submit appointment request.";
       toast.error(msg);
+      void loadService();
       void loadBookedSlots();
     } finally {
       setIsSubmitting(false);
@@ -316,17 +318,23 @@ export default function ServiceDetailsPage() {
                   >
                     {PREDEFINED_TIME_SLOTS.map((slot) => {
                       const isBooked = bookedSlots.includes(slot);
-                      const isSelected = selectedSlot === slot;
+                      const now = new Date();
+                      const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                      const isPastToday =
+                        appointmentDate === todayIso &&
+                        parseTimeSlotMinutes(slot) <= nowMinutes;
+                      const isDisabled = isBooked || isPastToday || isLoadingSlots;
+                      const isSelected = selectedSlot === slot && !isDisabled;
                       return (
                         <button
                           key={slot}
                           type="button"
                           role="radio"
                           aria-checked={isSelected}
-                          disabled={isBooked || isLoadingSlots}
+                          disabled={isDisabled}
                           onClick={() => setSelectedSlot(slot)}
                           className={`flex items-center justify-between rounded-control border px-3 py-2.5 text-xs font-semibold transition-colors ${
-                            isBooked
+                            isBooked || isPastToday
                               ? "cursor-not-allowed border-border bg-surface-muted text-muted/60 line-through"
                               : isSelected
                                 ? "cursor-pointer border-primary bg-primary text-white"
@@ -336,6 +344,8 @@ export default function ServiceDetailsPage() {
                           <span>{slot}</span>
                           {isBooked ? (
                             <span className="text-[10px] no-underline">Booked</span>
+                          ) : isPastToday ? (
+                            <span className="text-[10px] no-underline">Passed</span>
                           ) : isSelected ? (
                             <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
                           ) : null}

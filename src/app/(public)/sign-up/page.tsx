@@ -11,17 +11,13 @@ import { Button } from "@/components/ui/Button";
 import { ImageUploader } from "@/components/ui/ImageUploader";
 import { PageLoader } from "@/components/ui/Loader";
 import { signUp, useSession } from "@/lib/auth-client";
+import { getSafeCallbackUrl, resolveCustomerDestination } from "@/lib/callback";
 import { signUpSchema } from "@/lib/validators";
-
-function getSafeCallback(raw: string | null): string | null {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return null;
-  return raw;
-}
 
 function SignUpFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = getSafeCallback(searchParams.get("callbackUrl"));
+  const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"));
   const { data: session } = useSession();
 
   const [name, setName] = useState("");
@@ -35,8 +31,12 @@ function SignUpFormContent() {
   useEffect(() => {
     const u = session?.user as { role?: string; isBlocked?: boolean } | undefined;
     if (!u || u.isBlocked) return;
-    router.replace(u.role === "admin" ? "/dashboard/admin" : "/dashboard/customer");
-  }, [session, router]);
+    router.replace(
+      u.role === "admin"
+        ? "/dashboard/admin"
+        : resolveCustomerDestination(callbackUrl)
+    );
+  }, [session, router, callbackUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,10 +67,7 @@ function SignUpFormContent() {
       }
 
       toast.success("Account created successfully! Welcome to SalonBook.");
-      const destination =
-        callbackUrl && !callbackUrl.startsWith("/dashboard/admin")
-          ? callbackUrl
-          : "/dashboard/customer";
+      const destination = resolveCustomerDestination(callbackUrl);
       router.push(destination);
       router.refresh();
     } catch {

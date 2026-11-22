@@ -219,7 +219,12 @@ export function DashboardShell({
 
       {/* Mobile Drawer */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Dashboard navigation drawer"
+          className="fixed inset-0 z-50 flex lg:hidden"
+        >
           <div
             className="fixed inset-0 bg-sidebar/50"
             onClick={() => setDrawerOpen(false)}

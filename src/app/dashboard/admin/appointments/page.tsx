@@ -353,7 +353,7 @@ export default function AdminManageAppointmentsPage() {
             </div>
             <div>
               <span className="block text-muted">Customer Message</span>
-              <p className="mt-1 rounded-control bg-page p-3 text-text">
+              <p className="mt-1 break-words rounded-control bg-page p-3 text-text">
                 {detailTarget.message || "No notes added."}
               </p>
             </div>
