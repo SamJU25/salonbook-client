@@ -268,7 +268,7 @@ export function HomeDynamicSections() {
                           {serviceCount === 1 ? "Service" : "Services"}
                         </p>
                       )}
-                      <h3 className="mt-0.5 font-display text-2xl font-semibold leading-tight text-white underline-offset-4 group-hover:underline sm:text-3xl">
+                      <h3 className="mt-0.5 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">
                         {category}
                       </h3>
                       <p className="mt-1 line-clamp-1 text-xs leading-relaxed text-white/85 sm:text-sm">
