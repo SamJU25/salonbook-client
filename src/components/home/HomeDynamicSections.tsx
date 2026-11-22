@@ -77,13 +77,37 @@ function getCardImageSizes(index: number, total: number): string {
   return "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw";
 }
 
-export function HomeDynamicSections() {
-  const [services, setServices] = useState<SalonService[]>([]);
-  const [categories, setCategories] = useState<string[]>([...SALON_CATEGORIES]);
-  const [categoryCounts, setCategoryCounts] = useState<Record<string, number> | null>(
-    null
+function computeCategoryCounts(services: SalonService[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const svc of services) {
+    counts[svc.category] = (counts[svc.category] ?? 0) + 1;
+  }
+  return counts;
+}
+
+interface HomeDynamicSectionsProps {
+  initialServices?: SalonService[];
+  initialCategories?: string[];
+  hasInitialData?: boolean;
+}
+
+export function HomeDynamicSections({
+  initialServices = [],
+  initialCategories,
+  hasInitialData = false,
+}: HomeDynamicSectionsProps) {
+  const [services, setServices] = useState<SalonService[]>(() =>
+    initialServices.filter((svc) => svc.status === "active").slice(0, 6)
   );
-  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState<string[]>(
+    initialCategories && initialCategories.length > 0
+      ? initialCategories
+      : [...SALON_CATEGORIES]
+  );
+  const [categoryCounts, setCategoryCounts] = useState<Record<string, number> | null>(
+    () => (hasInitialData ? computeCategoryCounts(initialServices) : null)
+  );
+  const [isLoading, setIsLoading] = useState(!hasInitialData);
   const [error, setError] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
@@ -97,12 +121,8 @@ export function HomeDynamicSections() {
       const activeServices = (data.services || []).filter(
         (svc) => svc.status === "active"
       );
-      const counts: Record<string, number> = {};
-      for (const svc of activeServices) {
-        counts[svc.category] = (counts[svc.category] ?? 0) + 1;
-      }
 
-      setCategoryCounts(counts);
+      setCategoryCounts(computeCategoryCounts(activeServices));
       setServices(activeServices.slice(0, 6));
       if (data.categories && data.categories.length > 0) {
         setCategories(data.categories);
@@ -120,8 +140,9 @@ export function HomeDynamicSections() {
   }, []);
 
   useEffect(() => {
+    if (hasInitialData) return;
     void loadData();
-  }, [loadData]);
+  }, [hasInitialData, loadData]);
 
   const orderedBase = [
     "Haircut & Styling",

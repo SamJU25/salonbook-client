@@ -2,7 +2,7 @@
 
 import { RotateCcw, Search, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { Button } from "@/components/ui/Button";
 import { ServiceGridSkeleton } from "@/components/ui/Loader";
@@ -25,26 +25,59 @@ const SORT_LABELS: Record<ServiceSortOption, string> = {
   duration_desc: "Longest Duration",
 };
 
-export function BrowseServicesClient() {
+function CategoryQuerySync({
+  onCategoryChange,
+}: {
+  onCategoryChange: (nextCategory: string) => void;
+}) {
   const searchParams = useSearchParams();
+  const paramCat = searchParams.get("category") || "all";
+
+  useEffect(() => {
+    onCategoryChange(paramCat);
+  }, [paramCat, onCategoryChange]);
+
+  return null;
+}
+
+interface BrowseServicesClientProps {
+  initialCategory?: string;
+  initialServices?: SalonService[];
+  initialCategories?: string[];
+  initialTotalCount?: number | null;
+  hasInitialData?: boolean;
+}
+
+export function BrowseServicesClient({
+  initialCategory = "all",
+  initialServices = [],
+  initialCategories,
+  initialTotalCount = null,
+  hasInitialData = false,
+}: BrowseServicesClientProps) {
   const router = useRouter();
 
-  const initialCategory = searchParams.get("category") || "all";
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [category, setCategory] = useState(initialCategory);
   const [sort, setSort] = useState<ServiceSortOption>("newest");
 
-  const [services, setServices] = useState<SalonService[]>([]);
-  const [totalCatalogCount, setTotalCatalogCount] = useState<number | null>(null);
-  const [categories, setCategories] = useState<string[]>([...SALON_CATEGORIES]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [services, setServices] = useState<SalonService[]>(() =>
+    initialCategory !== "all"
+      ? initialServices.filter((svc) => svc.category === initialCategory)
+      : initialServices
+  );
+  const [totalCatalogCount, setTotalCatalogCount] = useState<number | null>(
+    initialTotalCount
+  );
+  const [categories, setCategories] = useState<string[]>(
+    initialCategories && initialCategories.length > 0
+      ? initialCategories
+      : [...SALON_CATEGORIES]
+  );
+  const [isLoading, setIsLoading] = useState(!hasInitialData);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const paramCat = searchParams.get("category") || "all";
-    setCategory(paramCat);
-  }, [searchParams]);
+  const skipInitialFetchRef = useRef(hasInitialData);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -90,8 +123,18 @@ export function BrowseServicesClient() {
   }, [debouncedSearch, category, sort]);
 
   useEffect(() => {
+    if (
+      skipInitialFetchRef.current &&
+      debouncedSearch === "" &&
+      category === initialCategory &&
+      sort === "newest"
+    ) {
+      skipInitialFetchRef.current = false;
+      return;
+    }
+    skipInitialFetchRef.current = false;
     void fetchServices();
-  }, [fetchServices]);
+  }, [fetchServices, debouncedSearch, category, initialCategory, sort]);
 
   const displayedServices = useMemo(() => {
     if (sort === "duration_asc") {
@@ -105,7 +148,9 @@ export function BrowseServicesClient() {
 
   const handleCategoryChange = (nextCategory: string) => {
     setCategory(nextCategory);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : ""
+    );
     if (nextCategory === "all") {
       params.delete("category");
     } else {
@@ -129,6 +174,9 @@ export function BrowseServicesClient() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+      <Suspense fallback={null}>
+        <CategoryQuerySync onCategoryChange={setCategory} />
+      </Suspense>
       {/* Compact Page Introduction */}
       <div className="max-w-2xl">
         <p className="text-xs font-bold tracking-widest text-accent-text uppercase">

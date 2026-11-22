@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { BrowseServicesClient } from "@/components/services/BrowseServicesClient";
-import { PageLoader } from "@/components/ui/Loader";
+import { fetchServerPublicServices } from "@/lib/server-services";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Browse Salon Services",
@@ -9,10 +10,25 @@ export const metadata: Metadata = {
     "Search salon services by name, filter by category, and sort by price or duration.",
 };
 
-export default function BrowseServicesPage() {
+export default async function BrowseServicesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const [resolvedParams, snapshot] = await Promise.all([
+    searchParams,
+    fetchServerPublicServices(),
+  ]);
+
+  const initialCategory = resolvedParams.category?.trim() || "all";
+
   return (
-    <Suspense fallback={<PageLoader label="Loading salon services..." />}>
-      <BrowseServicesClient />
-    </Suspense>
+    <BrowseServicesClient
+      initialCategory={initialCategory}
+      initialServices={snapshot.services}
+      initialCategories={snapshot.categories}
+      initialTotalCount={snapshot.ok ? snapshot.services.length : null}
+      hasInitialData={snapshot.ok}
+    />
   );
 }

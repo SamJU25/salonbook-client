@@ -9,6 +9,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { HomeDynamicSections } from "@/components/home/HomeDynamicSections";
+import { fetchServerPublicServices } from "@/lib/server-services";
+
+export const dynamic = "force-dynamic";
 
 const HERO_TRUST_POINTS = [
   {
@@ -56,7 +59,9 @@ const BOOKING_STEPS = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const snapshot = await fetchServerPublicServices();
+
   return (
     <>
       {/* Full-Bleed Sunlit Salon Hero Banner */}
@@ -140,7 +145,11 @@ export default function HomePage() {
       </section>
 
       {/* Dynamic Section 1 (Featured Services) & Dynamic Section 2 (Categories) */}
-      <HomeDynamicSections />
+      <HomeDynamicSections
+        initialServices={snapshot.services}
+        initialCategories={snapshot.categories}
+        hasInitialData={snapshot.ok}
+      />
 
       {/* Additional Section: How Booking Works (Editorial Split Chapter Layout) */}
       <section
