@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { BrandMark } from "@/components/ui/BrandMark";
 
 interface AuthCardShellProps {
   title: string;
@@ -16,11 +16,11 @@ export function AuthCardShell({
       <div className="grid w-full grid-cols-1 overflow-hidden rounded-panel border border-border bg-surface shadow-card lg:grid-cols-12">
         <div className="relative hidden flex-col justify-between bg-sidebar p-10 text-white lg:col-span-5 lg:flex">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-secondary">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            <p className="inline-flex items-center gap-2.5 text-xs font-bold tracking-widest text-secondary uppercase">
+              <BrandMark className="h-4 w-4 text-accent" />
               SalonBook Member Access
-            </span>
-            <h2 className="mt-6 font-display text-4xl font-semibold leading-tight text-white">
+            </p>
+            <h2 className="mt-5 font-display text-4xl font-semibold leading-tight text-white">
               Your salon appointments, thoughtfully organized.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-sidebar-muted">
@@ -32,15 +32,15 @@ export function AuthCardShell({
           <div className="mt-8 overflow-hidden rounded-card border border-white/15">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/hero-salon.jpg"
-              alt="Calm sunlit SalonBook studio"
-              className="aspect-16/10 w-full object-cover"
+              src="/images/services/facial-skincare.jpg"
+              alt="Calm botanical skincare tray in soft daylight"
+              className="aspect-4/3 w-full object-cover"
             />
           </div>
         </div>
 
-        <div className="p-6 sm:p-10 lg:col-span-7">
-          <div className="mx-auto max-w-md">
+        <div className="flex flex-col justify-center p-6 sm:p-10 lg:col-span-7">
+          <div className="mx-auto w-full max-w-md">
             <h1 className="font-display text-3xl font-semibold text-text sm:text-4xl">
               {title}
             </h1>

@@ -114,6 +114,89 @@ select:user-invalid {
   border-color: #9A352E;
 }
 
+/* Hide browser-native password reveal button (Edge/IE) so custom toggle never duplicates */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Branded customizable <select> matching Botanical Elegance tokens */
+select.salon-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2.75rem;
+  line-height: 1.25rem;
+  padding-inline: 0.875rem;
+  cursor: pointer;
+}
+
+@supports (appearance: base-select) {
+  select.salon-select,
+  select.salon-select::picker(select) {
+    appearance: base-select;
+  }
+
+  select.salon-select::picker(select) {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 0.375rem;
+    margin-block-start: 0.375rem;
+    box-shadow: var(--shadow-dropdown);
+    min-inline-size: anchor-size(width);
+  }
+
+  select.salon-select::picker-icon {
+    content: "";
+    inline-size: 1rem;
+    block-size: 1rem;
+    flex-shrink: 0;
+    background-color: var(--color-muted);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+      no-repeat center / contain;
+    transition: transform 150ms ease, background-color 150ms ease;
+  }
+
+  select.salon-select:hover::picker-icon,
+  select.salon-select:open::picker-icon {
+    background-color: var(--color-primary);
+  }
+
+  select.salon-select:open::picker-icon {
+    transform: rotate(180deg);
+  }
+
+  select.salon-select option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  select.salon-select option:hover,
+  select.salon-select option:focus-visible {
+    background-color: var(--color-surface-muted);
+    outline: none;
+  }
+
+  select.salon-select option:checked {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  select.salon-select option::checkmark {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
