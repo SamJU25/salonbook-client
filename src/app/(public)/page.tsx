@@ -42,9 +42,9 @@ const BOOKING_STEPS = [
   },
   {
     step: "03",
-    title: "Confirm securely",
+    title: "Pay after confirmation",
     description:
-      "Once the salon confirms your request, complete payment safely via Stripe.",
+      "After your appointment is confirmed, complete payment securely with Stripe.",
     icon: CreditCard,
   },
   {
@@ -91,8 +91,8 @@ export default function HomePage() {
               Calm, intentional care for hair, skin, and ritual.
             </h1>
             <p className="mt-4 max-w-[540px] text-base leading-relaxed text-[#F5F3EE] drop-shadow-[0_1px_8px_rgba(24,22,19,0.42)] sm:mt-5 sm:text-lg">
-              Thoughtfully curated hair, skin, and wellness treatments —
-              delivered with care, in a space designed to help you slow down.
+              Hair, skincare, and spa treatments — delivered with care, in a
+              space designed to help you slow down.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
@@ -158,22 +158,12 @@ export default function HomePage() {
                 id="how-it-works-heading"
                 className="mt-3 font-display text-3xl font-semibold leading-tight text-text text-balance sm:text-4xl lg:text-5xl"
               >
-                Your next self-care moment is just a few steps away.
+                Book your visit in four clear steps.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted text-balance sm:text-base">
-                From choosing your favorite service to confirming your
-                appointment, we&apos;ve made booking simple, transparent, and
-                calm.
+                Pick a treatment, request an open time, and pay online once
+                your booking is confirmed.
               </p>
-
-              <div className="mt-8">
-                <Link
-                  href="/services"
-                  className="inline-flex h-12 items-center justify-center rounded-control bg-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
-                >
-                  Explore Salon Services
-                </Link>
-              </div>
             </div>
 
             <div className="lg:col-span-7">

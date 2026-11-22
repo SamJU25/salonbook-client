@@ -17,8 +17,8 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm leading-relaxed text-sidebar-muted">
-              A calm, editorial wellness and salon appointment platform built for
-              effortless scheduling and transparent care.
+              Hair, skincare, and spa appointments — book your visit online and
+              manage treatments in one place.
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-[#C8D5CD] sm:flex-row">
           <p>&copy; {new Date().getFullYear()} SalonBook. All rights reserved.</p>
-          <p>Thoughtful salon care, effortlessly scheduled.</p>
+          <p>Open Monday – Saturday, 9:00 AM – 7:00 PM</p>
         </div>
       </div>
     </footer>

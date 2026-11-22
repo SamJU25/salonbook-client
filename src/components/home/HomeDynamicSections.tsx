@@ -39,7 +39,7 @@ const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   Makeup: {
     image: "/images/services/makeup.jpg",
-    description: "Soft editorial artistry for events.",
+    description: "Soft bridal and event makeup artistry.",
   },
   "Manicure & Pedicure": {
     image: "/images/services/manicure-pedicure.jpg",
@@ -146,7 +146,7 @@ export function HomeDynamicSections() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs font-bold tracking-widest text-accent-text uppercase">
-              Curated Treatments
+              Popular Services
             </p>
             <h2
               id="featured-services-heading"
@@ -155,7 +155,7 @@ export function HomeDynamicSections() {
               Featured Salon Services
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">
-              Explore our most requested hair, skincare, nail, and spa rituals
+              Browse our most requested hair, skincare, nail, and spa services
               available for online booking.
             </p>
           </div>
@@ -210,7 +210,7 @@ export function HomeDynamicSections() {
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div className="max-w-2xl">
               <p className="text-xs font-bold tracking-widest text-accent-text uppercase">
-                Browse by Specialty
+                By Category
               </p>
               <h2
                 id="categories-heading"
@@ -219,7 +219,7 @@ export function HomeDynamicSections() {
                 Salon Service Categories
               </h2>
               <p className="mt-2 text-sm text-muted sm:text-base">
-                Select a treatment specialty to explore matching services.
+                Choose a category to view matching treatments.
               </p>
             </div>
 
