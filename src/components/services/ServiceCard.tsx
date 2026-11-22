@@ -1,4 +1,4 @@
-import { ArrowRight, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/format";
 import type { SalonService } from "@/types";
@@ -41,10 +41,9 @@ export function ServiceCard({ service }: { service: SalonService }) {
 
           <Link
             href={`/services/${service._id}`}
-            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-control bg-secondary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+            className="inline-flex h-10 items-center justify-center rounded-control bg-secondary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
           >
             View details
-            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
         </div>
       </div>
