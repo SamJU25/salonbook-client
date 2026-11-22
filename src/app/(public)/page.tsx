@@ -81,21 +81,21 @@ export default function HomePage() {
           className="absolute inset-0 hidden md:block bg-[linear-gradient(90deg,rgba(24,22,19,0.66)_0%,rgba(24,22,19,0.44)_32%,rgba(24,22,19,0.12)_50%,rgba(24,22,19,0)_64%)]"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[480px] w-full max-w-7xl items-center px-4 py-14 sm:min-h-[540px] sm:px-6 lg:min-h-[600px] lg:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[430px] w-full max-w-7xl items-center px-4 py-10 sm:min-h-[540px] sm:px-6 sm:py-14 lg:min-h-[600px] lg:px-8 lg:py-16">
           <div className="max-w-xl">
             <p className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-[#F5F3EE] uppercase">
               <span className="h-px w-7 bg-accent" aria-hidden="true" />
               Botanical Wellness &amp; Salon Studio
             </p>
-            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-white text-balance drop-shadow-[0_1px_12px_rgba(24,22,19,0.38)] sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="mt-4 font-display text-[2.125rem] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_1px_12px_rgba(24,22,19,0.38)] sm:mt-5 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
               Calm, intentional care for hair, skin, and ritual.
             </h1>
-            <p className="mt-5 max-w-[540px] text-base leading-relaxed text-[#F5F3EE] drop-shadow-[0_1px_8px_rgba(24,22,19,0.42)] sm:text-lg">
+            <p className="mt-4 max-w-[540px] text-base leading-relaxed text-[#F5F3EE] drop-shadow-[0_1px_8px_rgba(24,22,19,0.42)] sm:mt-5 sm:text-lg">
               Thoughtfully curated hair, skin, and wellness treatments —
               delivered with care, in a space designed to help you slow down.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
               <Link
                 href="/services"
                 className="inline-flex h-12 w-full items-center justify-center rounded-control bg-primary px-6 text-sm font-semibold text-white shadow-card transition-colors hover:bg-primary-hover sm:w-auto"
@@ -118,8 +118,8 @@ export default function HomePage() {
         aria-label="Booking highlights"
         className="border-b border-border bg-surface"
       >
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-6">
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-5 lg:px-8">
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-6">
             {HERO_TRUST_POINTS.map((item) => {
               const Icon = item.icon;
               return (

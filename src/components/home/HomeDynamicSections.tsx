@@ -141,7 +141,7 @@ export function HomeDynamicSections() {
       {/* Dynamic Section 1: Featured Salon Services */}
       <section
         aria-labelledby="featured-services-heading"
-        className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16"
+        className="mx-auto max-w-7xl px-4 pt-9 pb-14 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
       >
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>

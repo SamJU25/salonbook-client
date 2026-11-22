@@ -83,7 +83,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur-xs">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 md:h-20 lg:px-8">
         <Link
           href="/"
           className="inline-flex items-center gap-2.5 text-text focus-visible:rounded-lg"
