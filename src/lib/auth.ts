@@ -6,6 +6,7 @@ import { MongoClient } from "mongodb";
 
 const globalForAuth = globalThis as unknown as {
   mongoClient?: MongoClient;
+  mongoConnectPromise?: Promise<MongoClient>;
   betterAuthInstance?: ReturnType<typeof createAuth>;
 };
 
@@ -15,9 +16,36 @@ function getMongoClient(): MongoClient {
     if (!uri) {
       throw new Error("MONGODB_URI environment variable is required for Better Auth");
     }
-    globalForAuth.mongoClient = new MongoClient(uri);
+    globalForAuth.mongoClient = new MongoClient(uri, {
+      maxPoolSize: 5,
+      minPoolSize: 0,
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 8000,
+      socketTimeoutMS: 15000,
+      autoSelectFamily: false,
+    });
   }
   return globalForAuth.mongoClient;
+}
+
+/**
+ * Ensures the cached MongoClient is connected for Better Auth in serverless
+ * runtimes, resetting cached instances if a previous topology closed.
+ */
+export async function ensureAuthReady(): Promise<void> {
+  const client = getMongoClient();
+  if (!globalForAuth.mongoConnectPromise) {
+    globalForAuth.mongoConnectPromise = client.connect();
+  }
+  try {
+    await globalForAuth.mongoConnectPromise;
+  } catch (err) {
+    globalForAuth.mongoConnectPromise = undefined;
+    globalForAuth.mongoClient = undefined;
+    globalForAuth.betterAuthInstance = undefined;
+    void client.close().catch(() => {});
+    throw err;
+  }
 }
 
 function createAuth() {

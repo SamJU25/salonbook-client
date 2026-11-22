@@ -21,11 +21,15 @@ export default async function BrowseServicesPage({
   ]);
 
   const initialCategory = resolvedParams.category?.trim() || "all";
+  const initialServices =
+    initialCategory !== "all"
+      ? snapshot.services.filter((svc) => svc.category === initialCategory)
+      : snapshot.services;
 
   return (
     <BrowseServicesClient
       initialCategory={initialCategory}
-      initialServices={snapshot.services}
+      initialServices={initialServices}
       initialCategories={snapshot.categories}
       initialTotalCount={snapshot.ok ? snapshot.services.length : null}
       hasInitialData={snapshot.ok}
