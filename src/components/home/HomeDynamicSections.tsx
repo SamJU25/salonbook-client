@@ -19,15 +19,15 @@ interface CategoryMeta {
 const CATEGORY_META: Record<string, CategoryMeta> = {
   "Haircut & Styling": {
     image: "/images/services/haircut-styling.jpg",
-    description: "Tailored cuts, silk presses & blowouts.",
+    description: "Layered cuts, sleek trims & blowouts.",
   },
   "Facial & Skincare": {
     image: "/images/services/facial-skincare.jpg",
-    description: "Lymphatic massage & hydration facials.",
+    description: "Lymphatic massage & aqua hydration facials.",
   },
   "Hair Coloring": {
     image: "/images/services/hair-coloring.jpg",
-    description: "Dimensional balayage & botanical gloss.",
+    description: "Dimensional balayage & silk shine gloss.",
   },
   "Spa & Massage": {
     image: "/images/services/spa-massage.jpg",
@@ -43,7 +43,7 @@ const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "Manicure & Pedicure": {
     image: "/images/services/manicure-pedicure.jpg",
-    description: "Cuticle care, mineral soak & polish.",
+    description: "Cuticle care, mineral soak & sheer polish.",
   },
 };
 
