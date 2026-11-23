@@ -57,11 +57,11 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-sidebar-muted">
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>240 Oakwood Ave, Suite 4B, Austin, TX</span>
+                <span>42 Dosan-daero 55-gil, Gangnam-gu, Seoul</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span>+1 (555) 234-8910</span>
+                <span>+82 2-512-0480</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />

@@ -11,16 +11,10 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { apiRequest } from "@/lib/api-client";
 import { signOut, useSession } from "@/lib/auth-client";
 import { PREDEFINED_TIME_SLOTS } from "@/lib/constants";
-import { parseTimeSlotMinutes } from "@/lib/date";
+import { getSalonNow, parseTimeSlotMinutes } from "@/lib/date";
 import { formatCurrency } from "@/lib/format";
 import { bookingSchema } from "@/lib/validators";
 import type { SalonService } from "@/types";
-
-function getLocalTodayIso(): string {
-  const now = new Date();
-  const offsetMs = now.getTimezoneOffset() * 60_000;
-  return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
-}
 
 export default function ServiceDetailsPage() {
   const params = useParams<{ id: string }>();
@@ -36,7 +30,7 @@ export default function ServiceDetailsPage() {
   const [isLoadingService, setIsLoadingService] = useState(true);
   const [serviceError, setServiceError] = useState<string | null>(null);
 
-  const todayIso = useMemo(() => getLocalTodayIso(), []);
+  const todayIso = useMemo(() => getSalonNow().date, []);
   const [appointmentDate, setAppointmentDate] = useState<string>(todayIso);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -318,11 +312,10 @@ export default function ServiceDetailsPage() {
                   >
                     {PREDEFINED_TIME_SLOTS.map((slot) => {
                       const isBooked = bookedSlots.includes(slot);
-                      const now = new Date();
-                      const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                      const salonNow = getSalonNow();
                       const isPastToday =
-                        appointmentDate === todayIso &&
-                        parseTimeSlotMinutes(slot) <= nowMinutes;
+                        appointmentDate === salonNow.date &&
+                        parseTimeSlotMinutes(slot) <= salonNow.minutes;
                       const isDisabled = isBooked || isPastToday || isLoadingSlots;
                       const isSelected = selectedSlot === slot && !isDisabled;
                       return (
