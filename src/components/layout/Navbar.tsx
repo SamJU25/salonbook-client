@@ -38,7 +38,7 @@ export function Navbar() {
 
   const isAdmin = user?.role === "admin";
   const dashboardHref = isAdmin ? "/dashboard/admin" : "/dashboard/customer";
-  const dashboardNavLabel = isAdmin ? "Admin Dashboard" : "My Account";
+  const dashboardNavLabel = isAdmin ? "Admin Dashboard" : "Dashboard";
 
   useEffect(() => {
     setMobileOpen(false);
@@ -121,15 +121,6 @@ export function Navbar() {
           >
             Browse Services
           </Link>
-          {user && (
-            <Link
-              href={dashboardHref}
-              aria-current={pathname.startsWith("/dashboard") ? "page" : undefined}
-              className={navLinkClass("/dashboard")}
-            >
-              {dashboardNavLabel}
-            </Link>
-          )}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
@@ -141,7 +132,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 aria-expanded={dropdownOpen}
-                aria-haspopup="menu"
+                aria-controls={dropdownOpen ? "navbar-account-menu" : undefined}
                 className="inline-flex h-11 items-center gap-2.5 rounded-control border border-border bg-surface px-3.5 text-sm font-semibold text-text transition-colors hover:border-primary/40 hover:bg-surface-muted cursor-pointer"
               >
                 {user.image ? (
@@ -157,32 +148,37 @@ export function Navbar() {
                   </span>
                 )}
                 <span className="max-w-[140px] truncate">{user.name || "Account"}</span>
-                <ChevronDown className="h-4 w-4 text-muted" aria-hidden="true" />
+                <ChevronDown
+                  className={`h-4 w-4 text-muted transition-transform duration-200 ${
+                    dropdownOpen ? "rotate-180 text-primary" : ""
+                  }`}
+                  aria-hidden="true"
+                />
               </button>
 
               {dropdownOpen && (
                 <div
-                  role="menu"
+                  id="navbar-account-menu"
                   className="absolute right-0 mt-2 w-60 rounded-card border border-border bg-surface p-2 shadow-dropdown"
                 >
-                  <div className="border-b border-border px-3 py-2">
-                    <p className="truncate text-sm font-semibold text-text">
-                      {user.name}
+                  <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2">
+                    <p className="min-w-0 truncate text-xs font-medium text-muted">
+                      {user.email}
                     </p>
-                    <p className="truncate text-xs text-muted">{user.email}</p>
+                    <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold tracking-wide text-primary uppercase">
+                      {isAdmin ? "Admin" : "Customer"}
+                    </span>
                   </div>
                   <Link
                     href={dashboardHref}
-                    role="menuitem"
                     className="mt-1 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
                   >
                     <LayoutDashboard className="h-4 w-4 text-primary" aria-hidden="true" />
-                    {isAdmin ? "Admin Dashboard" : "My Dashboard"}
+                    {dashboardNavLabel}
                   </Link>
                   {isAdmin ? (
                     <Link
                       href="/dashboard/admin/services"
-                      role="menuitem"
                       className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
                     >
                       <Scissors className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -191,7 +187,6 @@ export function Navbar() {
                   ) : (
                     <Link
                       href="/dashboard/customer/appointments"
-                      role="menuitem"
                       className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
                     >
                       <CalendarCheck className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -200,7 +195,6 @@ export function Navbar() {
                   )}
                   <Link
                     href={isAdmin ? "/dashboard/admin/profile" : "/dashboard/customer/profile"}
-                    role="menuitem"
                     className="mt-0.5 flex items-center gap-2.5 rounded-control px-3 py-2 text-sm font-medium text-text hover:bg-surface-muted"
                   >
                     <UserCircle2 className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -208,7 +202,6 @@ export function Navbar() {
                   </Link>
                   <button
                     type="button"
-                    role="menuitem"
                     onClick={handleLogout}
                     className="mt-0.5 flex w-full items-center gap-2.5 rounded-control px-3 py-2 text-left text-sm font-medium text-[#9A352E] hover:bg-status-cancelled-bg cursor-pointer"
                   >
