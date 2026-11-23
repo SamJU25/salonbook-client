@@ -9,7 +9,7 @@ import {
   Menu,
   PlusCircle,
   Scissors,
-  UserCog,
+  UserCircle2,
   Users,
   X,
 } from "lucide-react";
@@ -35,7 +35,7 @@ const CUSTOMER_NAV: NavItem[] = [
     href: "/dashboard/customer/appointments",
     icon: CalendarCheck,
   },
-  { label: "My Profile", href: "/dashboard/customer/profile", icon: UserCog },
+  { label: "My Profile", href: "/dashboard/customer/profile", icon: UserCircle2 },
 ];
 
 const ADMIN_NAV: NavItem[] = [
@@ -53,7 +53,7 @@ const ADMIN_NAV: NavItem[] = [
     href: "/dashboard/admin/transactions",
     icon: CreditCard,
   },
-  { label: "My Profile", href: "/dashboard/admin/profile", icon: UserCog },
+  { label: "My Profile", href: "/dashboard/admin/profile", icon: UserCircle2 },
 ];
 
 export function DashboardShell({
@@ -236,9 +236,11 @@ export function DashboardShell({
           />
           <aside className="relative z-10 flex w-72 max-w-[85vw] flex-col bg-sidebar text-sidebar-text shadow-modal">
             <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
-              <Link href="/" className="inline-flex items-center gap-2">
-                <BrandMark className="h-4 w-4 text-accent" />
-                <span className="font-display text-xl font-semibold text-white">
+              <Link href="/" className="inline-flex items-center gap-2.5">
+                <span className="flex h-8 w-8 items-center justify-center rounded-control bg-primary text-white">
+                  <BrandMark className="h-4 w-4" />
+                </span>
+                <span className="font-display text-2xl font-semibold text-white">
                   SalonBook
                 </span>
               </Link>
@@ -293,13 +295,17 @@ export function DashboardShell({
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Link
                 href="/services"
-                className="hidden h-10 items-center rounded-control border border-border px-3.5 text-xs font-semibold text-primary transition-colors hover:bg-secondary sm:inline-flex"
+                className="hidden h-9 items-center rounded-full px-3 text-xs font-semibold text-muted transition-colors hover:bg-surface-muted hover:text-primary sm:inline-flex"
               >
                 Browse Services
               </Link>
+              <span
+                aria-hidden="true"
+                className="hidden h-4 w-px bg-border sm:block"
+              />
               <Link
                 href={profileHref}
                 aria-label="Open My Profile"
