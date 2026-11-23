@@ -159,15 +159,15 @@ export function Navbar() {
               {dropdownOpen && (
                 <div
                   id="navbar-account-menu"
-                  className="absolute right-0 mt-2 w-60 rounded-card border border-border bg-surface p-2 shadow-dropdown"
+                  className="absolute right-0 mt-2 w-64 rounded-card border border-border bg-surface p-2 shadow-dropdown"
                 >
-                  <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2">
-                    <p className="min-w-0 truncate text-xs font-medium text-muted">
+                  <div className="border-b border-border px-3 py-2">
+                    <p className="text-[11px] font-medium text-muted">
+                      Signed in as
+                    </p>
+                    <p className="mt-0.5 truncate text-xs font-semibold text-text">
                       {user.email}
                     </p>
-                    <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold tracking-wide text-primary uppercase">
-                      {isAdmin ? "Admin" : "Customer"}
-                    </span>
                   </div>
                   <Link
                     href={dashboardHref}
