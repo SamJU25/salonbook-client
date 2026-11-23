@@ -10,6 +10,7 @@ import { PageLoader } from "@/components/ui/Loader";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { apiRequest } from "@/lib/api-client";
 import { signOut, useSession } from "@/lib/auth-client";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { PREDEFINED_TIME_SLOTS } from "@/lib/constants";
 import { getSalonNow, parseTimeSlotMinutes } from "@/lib/date";
 import { formatCurrency } from "@/lib/format";
@@ -282,14 +283,11 @@ export default function ServiceDetailsPage() {
                     <Calendar className="h-4 w-4 text-primary" aria-hidden="true" />
                     Appointment Date
                   </label>
-                  <input
+                  <DatePicker
                     id="booking-date"
-                    type="date"
-                    min={todayIso}
-                    required
                     value={appointmentDate}
-                    onChange={(e) => setAppointmentDate(e.target.value)}
-                    className="h-11 w-full rounded-control border border-border bg-surface px-3.5 text-sm text-text focus:border-primary focus:outline-none"
+                    minDate={todayIso}
+                    onChange={setAppointmentDate}
                   />
                 </div>
 
