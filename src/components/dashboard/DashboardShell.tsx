@@ -131,6 +131,10 @@ export function DashboardShell({
   }
 
   const navItems = requiredRole === "admin" ? ADMIN_NAV : CUSTOMER_NAV;
+  const profileHref =
+    requiredRole === "admin"
+      ? "/dashboard/admin/profile"
+      : "/dashboard/customer/profile";
 
   const handleLogout = async () => {
     try {
@@ -296,7 +300,11 @@ export function DashboardShell({
               >
                 Browse Services
               </Link>
-              <div className="flex h-10 items-center gap-2.5 rounded-control border border-border/80 bg-page/60 px-2.5 sm:px-3">
+              <Link
+                href={profileHref}
+                aria-label="Open My Profile"
+                className="inline-flex h-10 items-center gap-2.5 rounded-full px-2 text-sm font-semibold text-text transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 sm:pr-3"
+              >
                 {user.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
@@ -309,15 +317,10 @@ export function DashboardShell({
                     {(user.name || "U").charAt(0).toUpperCase()}
                   </span>
                 )}
-                <div className="hidden text-left leading-tight sm:block">
-                  <p className="max-w-[150px] truncate text-xs font-semibold text-text">
-                    {user.name}
-                  </p>
-                  <p className="text-[11px] font-medium capitalize text-muted">
-                    {userRole}
-                  </p>
-                </div>
-              </div>
+                <span className="hidden max-w-[160px] truncate text-sm font-semibold text-text sm:inline">
+                  {user.name}
+                </span>
+              </Link>
             </div>
           </div>
         </header>
